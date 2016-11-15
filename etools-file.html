@@ -405,7 +405,6 @@ Custom property | Description | Default
 
         _fileSelected: function(e) {
           var files = e.target.files;
-          console.log(this, this.files)
           // replace file if case
           if (this._replaceFile(files[0]) === true) {
             return;
