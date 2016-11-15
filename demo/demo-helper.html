@@ -1,0 +1,57 @@
+<link rel="import" href="../../polymer/polymer.html">
+
+<dom-module id="demo-helper">
+  <script>
+    (function() {
+      // jscs:disable
+      'use strict';
+
+      Polymer({
+        is: 'demo-helper',
+
+        properties: {
+          fileData: {
+            type: Array,
+            value: [
+              {
+                id: 'pic1',
+                file_name: 'cat.jpg',
+                path: 'https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg'
+              }
+            ],
+            notify: true
+          },
+          files: {
+            type: Array,
+            value: [
+              {
+                id: 'pic1',
+                file_name: 'cat.jpg',
+                path: 'https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg'
+              },
+              {
+                id: 'pic2',
+                file_name: 'cat2.jpg',
+                path: 'https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg'
+              }
+            ],
+            notify: true
+          },
+          singleFile: {
+            type: Array,
+            value: []
+          },
+          multipleFiles: {
+            type: Array,
+            value: []
+          }
+        },
+
+        ready: function() {
+
+        }
+      });
+
+    })();
+  </script>
+</dom-module>
