@@ -36,6 +36,7 @@ Custom property | Description | Default
  `--etools-file-secondary-text-color` | Secondary text color | `rgba(255, 255, 255, 0.54)`
  `--etools-file-main-btn-color` | Main buttons text color(upload and download buttons) | `#00acff`
  `--etools-file-delete-btn-color` | Delete button text color | `#f1572a`
+ `--etools-file-single-file-wrapper` | Mixin applied to single file name wrapper | `{}`
 
 
 ## Install

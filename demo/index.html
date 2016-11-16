@@ -29,12 +29,12 @@
     <template is="dom-bind">
       <demo-helper multiple-files="{{multipleFiles}}" single-file="{{singleFile}}" files="{{files}}" file-data="{{fileData}}"></demo-helper>
       <div class="layout horizontal wrap center-justified" style="margin-top: 40px;">
-        <div class="flex-6" style="padding: 0 20px;box-sizing: border-box;">
+        <div class="flex-6" style="padding: 0 20px;box-sizing: border-box;overflow:hidden;">
 
           <etools-file files="{{singleFile}}" label="File attachement (no file selected)"></etools-file>
 
         </div>
-        <div class="flex-6" style="padding: 0 20px; box-sizing: border-box;">
+        <div class="flex-6" style="padding: 0 20px; box-sizing: border-box;overflow:hidden;">
 
           <etools-file files="{{multipleFiles}}" label="File attachements (no files selected)" multiple></etools-file>
 
@@ -42,12 +42,12 @@
       </div>
 
       <div class="layout horizontal wrap center-justified" style="margin-top: 40px;">
-        <div class="flex-6" style="padding: 0 20px;box-sizing: border-box;">
+        <div class="flex-6" style="padding: 0 20px;box-sizing: border-box;overflow:hidden;">
 
           <etools-file files="{{fileData}}" label="File attachement (file already saved)"></etools-file>
 
         </div>
-        <div class="flex-6" style="padding: 0 20px; box-sizing: border-box;">
+        <div class="flex-6" style="padding: 0 20px; box-sizing: border-box;overflow:hidden;">
 
           <etools-file files="{{files}}" label="File attachements (files already saved)" multiple></etools-file>
 
@@ -55,12 +55,12 @@
       </div>
 
       <div class="layout horizontal wrap center-justified" style="margin-top: 40px;">
-        <div class="flex-6" style="padding: 0 20px;box-sizing: border-box;">
+        <div class="flex-6" style="padding: 0 20px;box-sizing: border-box;overflow:hidden;">
 
           <etools-file files="[[fileData]]" label="File attachement(readonly)" readonly></etools-file>
 
         </div>
-        <div class="flex-6" style="padding: 0 20px; box-sizing: border-box;">
+        <div class="flex-6" style="padding: 0 20px; box-sizing: border-box;overflow:hidden;">
 
           <etools-file files="[[files]]" label="File attachements (readonly)" multiple readonly ></etools-file>
 
@@ -68,12 +68,12 @@
       </div>
 
       <div class="layout horizontal wrap center-justified" style="margin-top: 40px;">
-        <div class="flex-6" style="padding: 0 20px;box-sizing: border-box;">
+        <div class="flex-6" style="padding: 0 20px;box-sizing: border-box;overflow:hidden;">
 
           <etools-file files=[[someFileData]] label="File attachement (no file, readonly)" readonly></etools-file>
 
         </div>
-        <div class="flex-6" style="padding: 0 20px; box-sizing: border-box;">
+        <div class="flex-6" style="padding: 0 20px; box-sizing: border-box;overflow:hidden;">
 
           <etools-file multiple="[[someFilesData]]" label="File attachements (no files selected, readonly)" multiple readonly></etools-file>
 

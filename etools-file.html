@@ -21,6 +21,7 @@ Custom property | Description | Default
 `--etools-file-secondary-text-color` | Secondary text color | `rgba(255, 255, 255, 0.54)`
 `--etools-file-main-btn-color` | Main buttons text color(upload and download buttons) | `#00acff`
 `--etools-file-delete-btn-color` | Delete button text color | `#f1572a`
+`--etools-file-single-file-wrapper` | Mixin applied to single file name wrapper | `{}`
 
 @demo demo/index.html
 -->
@@ -54,30 +55,41 @@ Custom property | Description | Default
         @apply(--layout-horizontal);
         @apply(--layout-wrap);
       }
-
+      .file-area {
+        position: relative;
+      }
       .selected-file-container,
       .file-actions {
-        @apply(--layout-horizontal);
+        display: inline-block;
       }
 
+      .file-actions paper-button,
+      .selected-file-container iron-icon,
+      .file-name-wrapper,
+      .selected-file-container,
+      .file-actions {
+        float: left;
+      }
       .selected-file-container {
-        @apply(--layout-flex);
         max-width: calc(100% - 208px);
       }
-
       .file-actions {
-        @apply(--layout-end-justified);
+        @apply(--layout-horizontal);
         width: 208px;
       }
-
+      .files-container.multiple .file-actions {
+        @apply(--layout-flex);
+        @apply(--layout-end-justified);
+      }
+      .files-container:not(.multiple) .file-name-wrapper {
+        @apply(--etools-file-single-file-wrapper);
+      }
       .selected-file-container.only-selected {
         max-width: calc(100% - 155px);
       }
-
       .file-actions.only-selected {
         width: 155px;
       }
-
       :host([readonly]) .selected-file-container {
         max-width: calc(100% - 135px);
       }
@@ -86,19 +98,19 @@ Custom property | Description | Default
       }
 
       .file-name-wrapper {
+        display: inline-block;
         width: calc(100% - 32px);
-        position: relative;
+        line-height: 24px;
+        height: 24px;
       }
 
       .file-name {
+        display: inline-block;
         width: 100%;
-        line-height: 24px;
-        height: 24px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         font-size: 16px;
-        @apply(--layout-fit);
       }
 
       paper-button iron-icon,
