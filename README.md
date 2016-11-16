@@ -3,7 +3,8 @@
 This element will allow you to select and prepare the files you are gonna upload.
 The component doesn't upload the files, it just manages an array of them, which is reachable from the parent component.
 
-![alt tag](etools-file.png)
+![alt tag](etools-file-unselected-files.png)
+![alt tag](etools-file-examples.png)
 
 ## Usage
 
@@ -37,7 +38,10 @@ Custom property | Description | Default
  `--etools-file-main-btn-color` | Main buttons text color(upload and download buttons) | `#00acff`
  `--etools-file-delete-btn-color` | Delete button text color | `#f1572a`
  `--etools-file-single-file-wrapper` | Mixin applied to single file name wrapper | `{}`
-
+`--etools-file-filename-container` | Mixin applied to the filename container | `{}`
+`--etools-file-readonly-filename-container` | Mixin applied to the filename container(only if it's readonly) | `{}`
+`--etools-file-actions-multiple` | Mixin applied to file action buttons container if multiple is `true` | `{}`
+`--etools-file-actions-single` | Mixin applied to file action buttons container for single file selection | `{}`
 
 ## Install
 ```bash
