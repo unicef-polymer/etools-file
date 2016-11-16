@@ -21,6 +21,7 @@ Custom property | Description | Default
 `--etools-file-secondary-text-color` | Secondary text color | `rgba(255, 255, 255, 0.54)`
 `--etools-file-main-btn-color` | Main buttons text color(upload and download buttons) | `#00acff`
 `--etools-file-delete-btn-color` | Delete button text color | `#f1572a`
+`--etools-file-single-file-wrapper` | Mixin applied to single file name wrapper | `{}`
 
 @demo demo/index.html
 -->
@@ -33,15 +34,15 @@ Custom property | Description | Default
         display: block;
         width: 100%;
 
-      /*--paper-input-container-underline:	{*/
-          /*display: none;*/
-        /*};*/
-        /*--paper-input-container-underline-focus:	{*/
-          /*display: none;*/
-        /*};*/
-        /*--paper-input-container-underline-disabled: {*/
-          /*display: none;*/
-        /*};*/
+      --paper-input-container-underline:	{
+          display: none;
+        };
+        --paper-input-container-underline-focus:	{
+          display: none;
+        };
+        --paper-input-container-underline-disabled: {
+          display: none;
+        };
       }
 
       [hidden] {
@@ -75,6 +76,13 @@ Custom property | Description | Default
       .file-actions {
         @apply(--layout-horizontal);
         width: 208px;
+      }
+      .files-container.multiple .file-actions {
+        @apply(--layout-flex);
+        @apply(--layout-end-justified);
+      }
+      .files-container:not(.multiple) .file-name-wrapper {
+        @apply(--etools-file-single-file-wrapper);
       }
       .selected-file-container.only-selected {
         max-width: calc(100% - 155px);
