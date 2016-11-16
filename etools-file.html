@@ -22,6 +22,10 @@ Custom property | Description | Default
 `--etools-file-main-btn-color` | Main buttons text color(upload and download buttons) | `#00acff`
 `--etools-file-delete-btn-color` | Delete button text color | `#f1572a`
 `--etools-file-single-file-wrapper` | Mixin applied to single file name wrapper | `{}`
+`--etools-file-filename-container` | Mixin applied to the filename container | `{}`
+`--etools-file-readonly-filename-container` | Mixin applied to the filename container(only if it's readonly) | `{}`
+`--etools-file-actions-multiple` | Mixin applied to file action buttons container if multiple is `true` | `{}`
+`--etools-file-actions-single` | Mixin applied to file action buttons container for single file selection | `{}`
 
 @demo demo/index.html
 -->
@@ -71,7 +75,16 @@ Custom property | Description | Default
         float: left;
       }
       .selected-file-container {
+        width: calc(100% - 208px);
         max-width: calc(100% - 208px);
+        min-width: 120px;
+      }
+      :host(:not([readonly])) .selected-file-container {
+        border-bottom: 1px solid var(--etools-file-secondary-text-color, #737373);
+        @apply(--etools-file-filename-container);
+      }
+      :host([readonly]) .selected-file-container {
+        @apply(--etools-file-readonly-filename-container);
       }
       .file-actions {
         @apply(--layout-horizontal);
@@ -80,12 +93,17 @@ Custom property | Description | Default
       .files-container.multiple .file-actions {
         @apply(--layout-flex);
         @apply(--layout-end-justified);
+        @apply(--etools-file-actions-multiple);
+      }
+      .files-container:not(.multiple) .file-actions {
+        @apply(--etools-file-actions-single);
       }
       .files-container:not(.multiple) .file-name-wrapper {
         @apply(--etools-file-single-file-wrapper);
       }
       .selected-file-container.only-selected {
         max-width: calc(100% - 155px);
+        width: calc(100% - 155px);
       }
       .file-actions.only-selected {
         width: 155px;
@@ -146,7 +164,7 @@ Custom property | Description | Default
 
       .change-button,
       .file-icon {
-        color: var(--etools-file-secondary-text-color, rgba(0, 0, 0, 0.54));
+        color: var(--etools-file-secondary-text-color, #737373);
       }
 
       :host(:not([readonly])) .upload-button,
