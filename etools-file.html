@@ -33,15 +33,15 @@ Custom property | Description | Default
         display: block;
         width: 100%;
 
-      --paper-input-container-underline:	{
-          display: none;
-        };
-        --paper-input-container-underline-focus:	{
-          display: none;
-        };
-        --paper-input-container-underline-disabled: {
-          display: none;
-        };
+      /*--paper-input-container-underline:	{*/
+          /*display: none;*/
+        /*};*/
+        /*--paper-input-container-underline-focus:	{*/
+          /*display: none;*/
+        /*};*/
+        /*--paper-input-container-underline-disabled: {*/
+          /*display: none;*/
+        /*};*/
       }
 
       [hidden] {
@@ -54,30 +54,34 @@ Custom property | Description | Default
         @apply(--layout-horizontal);
         @apply(--layout-wrap);
       }
-
+      .file-area {
+        position: relative;
+      }
       .selected-file-container,
       .file-actions {
-        @apply(--layout-horizontal);
+        display: inline-block;
       }
 
+      .file-actions paper-button,
+      .selected-file-container iron-icon,
+      .file-name-wrapper,
+      .selected-file-container,
+      .file-actions {
+        float: left;
+      }
       .selected-file-container {
-        @apply(--layout-flex);
         max-width: calc(100% - 208px);
       }
-
       .file-actions {
-        @apply(--layout-end-justified);
+        @apply(--layout-horizontal);
         width: 208px;
       }
-
       .selected-file-container.only-selected {
         max-width: calc(100% - 155px);
       }
-
       .file-actions.only-selected {
         width: 155px;
       }
-
       :host([readonly]) .selected-file-container {
         max-width: calc(100% - 135px);
       }
@@ -86,19 +90,19 @@ Custom property | Description | Default
       }
 
       .file-name-wrapper {
+        display: inline-block;
         width: calc(100% - 32px);
-        position: relative;
+        line-height: 24px;
+        height: 24px;
       }
 
       .file-name {
+        display: inline-block;
         width: 100%;
-        line-height: 24px;
-        height: 24px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         font-size: 16px;
-        @apply(--layout-fit);
       }
 
       paper-button iron-icon,
