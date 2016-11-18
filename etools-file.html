@@ -5,6 +5,7 @@
 <link rel="import" href="../paper-toast/paper-toast.html">
 
 <link rel="import" href="../paper-input/paper-input-container.html">
+<link rel="import" href="../paper-input/paper-input-error.html">
 
 <!--
 `etools-file`
@@ -26,6 +27,7 @@ Custom property | Description | Default
 `--etools-file-readonly-filename-container` | Mixin applied to the filename container(only if it's readonly) | `{}`
 `--etools-file-actions-multiple` | Mixin applied to file action buttons container if multiple is `true` | `{}`
 `--etools-file-actions-single` | Mixin applied to file action buttons container for single file selection | `{}`
+`--etools-file-error` | Mixin applied to the error message element | `{}`
 
 @demo demo/index.html
 -->
@@ -38,14 +40,17 @@ Custom property | Description | Default
         display: block;
         width: 100%;
 
-      --paper-input-container-underline:	{
-          display: none;
+        --paper-input-container-underline:	{
+            display: none;
         };
         --paper-input-container-underline-focus:	{
           display: none;
         };
         --paper-input-container-underline-disabled: {
           display: none;
+        };
+        --paper-input-error: {
+          @apply(--etools-file-error);
         };
       }
 
@@ -205,7 +210,7 @@ Custom property | Description | Default
 
     </style>
 
-    <paper-input-container always-float-label disabled$="[[disabled]]">
+    <paper-input-container always-float-label disabled$="[[disabled]]" invalid$="[[invalid]]">
 
       <label hidden$="[[!_showLabel(label)]]" aria-hidden="true">[[label]]</label>
 
@@ -262,6 +267,11 @@ Custom property | Description | Default
           </span>
         </div>
       </div>
+
+      <template is="dom-if" if="[[invalid]]">
+        <paper-input-error aria-live="assertive">[[errorMessage]]</paper-input-error>
+      </template>
+
       <input
           hidden
           class="paper-input-input"
@@ -318,6 +328,18 @@ Custom property | Description | Default
             type: Boolean,
             value: false,
             reflectToAttribute: true
+          },
+          invalid: {
+            type: Boolean,
+            value: function() {
+              return false;
+            }
+          },
+          errorMessage: {
+            type: String,
+            value: function() {
+              return '';
+            }
           }
         },
 

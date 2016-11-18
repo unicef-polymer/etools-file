@@ -5,6 +5,7 @@ The component doesn't upload the files, it just manages an array of them, which 
 
 ![alt tag](etools-file-unselected-files.png)
 ![alt tag](etools-file-examples.png)
+![alt tag](etools-file-error.png)
 
 ## Usage
 
@@ -17,6 +18,12 @@ The component doesn't upload the files, it just manages an array of them, which 
 <etools-file files="{{multipleFiles}}" multiple></etools-file>
 
 <etools-file files="{{multipleFiles}}" multiple readonly></etools-file>
+
+<etools-file files="{{files}}" 
+  label="Attachement (validation error shown)" 
+  invalid="[[invalid]]" 
+  error-message="Error message that will show only is invalid=true">
+</etools-file>
 ```
 
 Properties:
@@ -27,6 +34,8 @@ Properties:
 * multiple, Boolean, default: false
 * readonly, Boolean, default: false
 * uploadLabel, String, default: 'Upload File'
+* invalid, Boolean, default: false
+* errorMessage, String, default ''
 
 ## Styling
 
@@ -42,6 +51,7 @@ Custom property | Description | Default
 `--etools-file-readonly-filename-container` | Mixin applied to the filename container(only if it's readonly) | `{}`
 `--etools-file-actions-multiple` | Mixin applied to file action buttons container if multiple is `true` | `{}`
 `--etools-file-actions-single` | Mixin applied to file action buttons container for single file selection | `{}`
+`--etools-file-error` | Mixin applied to the error message element | `{}`
 
 ## Install
 ```bash
