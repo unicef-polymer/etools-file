@@ -208,6 +208,12 @@ Custom property | Description | Default
         display: none;
       }
 
+      .no-file-and-readonly {
+        @apply(--layout-vertical);
+        @apply(--layout-center-justified);
+        height: 24px;
+      }
+
     </style>
 
     <paper-input-container always-float-label disabled$="[[disabled]]" invalid$="[[invalid]]">
@@ -255,7 +261,7 @@ Custom property | Description | Default
           </template>
         </div>
 
-        <div class="upload-button-wrapper" hidden$="[[!_showUploadBtn(files.length)]]">
+        <div class="upload-button-wrapper" hidden$="[[!_showUploadBtn(files.length, readonly)]]">
           <span>
             <paper-button class="upload-button"
                           on-tap="_openFileChooser"
@@ -265,6 +271,9 @@ Custom property | Description | Default
             [[uploadLabel]]
             </paper-button>
           </span>
+        </div>
+        <div class="no-file-and-readonly" hidden$="[[!_showNoFileAttachedMsg(files.length, readonly)]]">
+          [[noFileAttachedMsg]]
         </div>
       </div>
 
@@ -340,6 +349,10 @@ Custom property | Description | Default
             value: function() {
               return '';
             }
+          },
+          noFileAttachedMsg: {
+            type: String,
+            value: 'No file attached'
           }
         },
 
@@ -360,11 +373,20 @@ Custom property | Description | Default
           return typeof label === 'string' && label !== '';
         },
 
-        _showUploadBtn: function(filesLength) {
+        _showUploadBtn: function(filesLength, readonly) {
           if (!this.multiple && filesLength > 0) {
             return false;
           }
+
+          if (filesLength === 0 && readonly === true) {
+            return false;
+          }
+
           return true;
+        },
+
+        _showNoFileAttachedMsg: function(filesLength, readonly) {
+          return filesLength === 0 && readonly === true;
         },
 
         _showDownloadBtn: function(file) {
