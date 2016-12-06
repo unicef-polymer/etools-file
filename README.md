@@ -6,6 +6,7 @@ The component doesn't upload the files, it just manages an array of them, which 
 ![alt tag](etools-file-unselected-files.png)
 ![alt tag](etools-file-examples.png)
 ![alt tag](etools-file-error.png)
+![alt tag](etools-file-readonly-no-file-attached.png)
 
 ## Usage
 
@@ -35,7 +36,8 @@ Properties:
 * readonly, Boolean, default: false
 * uploadLabel, String, default: 'Upload File'
 * invalid, Boolean, default: false
-* errorMessage, String, default ''
+* errorMessage, String, default: ''
+* noFileAttachedMsg, String, default: 'No file attached'
 
 ## Styling
 
