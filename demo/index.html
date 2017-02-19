@@ -25,6 +25,7 @@
 <body>
 <div class="vertical-section-container centered">
   <h3>etools-file demo</h3>
+  <!--
   <demo-snippet>
     <template is="dom-bind">
       <demo-helper multiple-files="{{multipleFiles}}" single-file="{{singleFile}}" files="{{files}}" file-data="{{fileData}}"></demo-helper>
@@ -85,6 +86,30 @@
           <etools-file multiple="[[someFilesData]]" label="File attachements (no files selected, readonly)" multiple readonly></etools-file>
 
         </div>
+      </div>
+
+    </template>
+  </demo-snippet>
+  -->
+
+  <h3>Custom file array, with ids and other data, all not used properties will remain unchanged</h3>
+
+  <demo-snippet>
+    <template is="dom-bind">
+      <demo-helper single-file-data="{{singleFileData}}" 
+        file-model={{fileModel}} 
+        multiple-file-data={{multipleFilesData}}
+        file-types={{fileTypes}}></demo-helper>
+      
+      <div class="layout horizontal wrap" style="margin: 30px 0;">
+        <etools-file files=[[singleFileData]] file-model="[[fileModel]]" label="Attachment"></etools-file>
+      </div>
+
+      <div class="layout horizontal wrap" style="margin: 30px 0;">
+        <etools-file files=[[multipleFilesData]] 
+          file-model="[[fileModel]]" 
+          file-types=[[fileTypes]]
+          label="Attachment" multiple activate-file-types></etools-file>
       </div>
 
     </template>

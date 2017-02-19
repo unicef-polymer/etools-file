@@ -4,9 +4,15 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
 
+<link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-input/paper-input-container.html">
 <link rel="import" href="../paper-input/paper-input-error.html">
 
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-menu/paper-menu.html">
+<link rel="import" href="../paper-item/paper-item.html">
+
+<link rel="import" href="style/etools-file-style.html">
 <!--
 `etools-file`
 
@@ -28,6 +34,12 @@ Custom property | Description | Default
 `--etools-file-actions-multiple` | Mixin applied to file action buttons container if multiple is `true` | `{}`
 `--etools-file-actions-single` | Mixin applied to file action buttons container for single file selection | `{}`
 `--etools-file-error` | Mixin applied to the error message element | `{}`
+`--etools-file-type-underline-color` | File type underline color | `rgba(0, 0, 0, 0.12)`
+`--etools-file-area-with-type-border-color` | File area with type underline color | `rgba(0, 0, 0, 0.12)`
+`--etools-file-label` | File type underline color | `rgba(0, 0, 0, 0.12)`
+`--etools-file-area-with-type` | File area with type mixin | `{}`
+`--etools-file-upload-button-paper-btn` | Upload btn paper-button mixin | `{}`
+`--etools-file-upload-button` | Upload button mixin | `{}`
 
 @demo demo/index.html
 -->
@@ -35,190 +47,13 @@ Custom property | Description | Default
 <dom-module id="etools-file">
 
   <template>
-    <style>
-      :host {
-        display: block;
-        width: 100%;
-
-        --paper-input-container-underline:	{
-            display: none;
-        };
-        --paper-input-container-underline-focus:	{
-          display: none;
-        };
-        --paper-input-container-underline-disabled: {
-          display: none;
-        };
-        --paper-input-error: {
-          @apply(--etools-file-error);
-        };
-      }
-
-      [hidden] {
-        display: none !important;
-      }
-
-      .files-container.multiple,
-      .file-area,
-      .upload-button-wrapper {
-        @apply(--layout-horizontal);
-        @apply(--layout-wrap);
-      }
-      .file-area {
-        position: relative;
-      }
-      .selected-file-container,
-      .file-actions {
-        display: inline-block;
-      }
-
-      .file-actions paper-button,
-      .selected-file-container iron-icon,
-      .file-name-wrapper,
-      .selected-file-container,
-      .file-actions {
-        float: left;
-      }
-      .selected-file-container {
-        width: calc(100% - 208px);
-        max-width: calc(100% - 208px);
-        min-width: 120px;
-      }
-      :host(:not([readonly])) .selected-file-container {
-        border-bottom: 1px solid var(--etools-file-secondary-text-color, #737373);
-        @apply(--etools-file-filename-container);
-      }
-      :host([readonly]) .selected-file-container {
-        @apply(--etools-file-readonly-filename-container);
-      }
-      .file-actions {
-        @apply(--layout-horizontal);
-        width: 208px;
-      }
-      .files-container.multiple .file-actions {
-        @apply(--layout-flex);
-        @apply(--layout-end-justified);
-        @apply(--etools-file-actions-multiple);
-      }
-      .files-container:not(.multiple) .file-actions {
-        @apply(--etools-file-actions-single);
-      }
-      .files-container:not(.multiple) .file-name-wrapper {
-        @apply(--etools-file-single-file-wrapper);
-      }
-      .selected-file-container.only-selected {
-        max-width: calc(100% - 155px);
-        width: calc(100% - 155px);
-      }
-      .file-actions.only-selected {
-        width: 155px;
-      }
-      :host([readonly]) .selected-file-container {
-        max-width: calc(100% - 135px);
-      }
-      :host([readonly]) .file-actions {
-        width: 135px;
-      }
-
-      .file-name-wrapper {
-        display: inline-block;
-        width: calc(100% - 32px);
-        line-height: 24px;
-        height: 24px;
-      }
-
-      .file-name {
-        display: inline-block;
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        font-size: 16px;
-      }
-
-      paper-button iron-icon,
-      .file-icon {
-        margin-right: 8px;
-      }
-
-      .upload-button {
-        --paper-button: {
-          @apply(--layout-flex);
-          @apply(--layout-start-justified);
-          font-weight: bold;
-          font-size: 14px;
-          margin: 0;
-          padding: 0 5px 0 0;
-        };
-        --paper-button-ink-color: rgba(255, 255, 255, 0);
-      }
-
-      .change-button,
-      .delete-button,
-      .download-button {
-        --paper-button: {
-          @apply(--layout-center-justified);
-          font-weight: bold;
-          font-size: 14px;
-          padding: 0 5px;
-          margin: 0 0 0 15px;
-          min-width: 0;
-          width: auto;
-        };
-      }
-
-      .change-button,
-      .file-icon {
-        color: var(--etools-file-secondary-text-color, #737373);
-      }
-
-      :host(:not([readonly])) .upload-button,
-      .download-button {
-        color: var(--etools-file-main-btn-color, #00acff);
-      }
-      .delete-button {
-        color: var(--etools-file-delete-btn-color, #f1572a);
-      }
-
-      .files-container.multiple .files-wrapper {
-        @apply(--layout-flex);
-      }
-
-      .files-container.multiple .upload-button-wrapper {
-        @apply(--layout-vertical);
-        @apply(--layout-end-justified);
-      }
-      .files-container .upload-button-wrapper > span {
-        @apply(--layout);
-      }
-
-      .files-container.multiple {
-        @apply(--layout-vertical);
-      }
-
-      .files-container.multiple .files-wrapper:not([hidden]) + .upload-button-wrapper .upload-button {
-        margin-top: 15px;
-      }
-
-      .files-container.multiple .file-area + .file-area {
-        margin-top: 6px;
-      }
-
-      :host([readonly]) .files-container.multiple .upload-button-wrapper {
-        display: none;
-      }
-
-      .no-file-and-readonly {
-        @apply(--layout-vertical);
-        @apply(--layout-center-justified);
-        height: 24px;
-      }
-
+    <style include="etools-file-style">
+      
     </style>
 
     <paper-input-container always-float-label disabled$="[[disabled]]" invalid$="[[invalid]]">
 
-      <label hidden$="[[!_showLabel(label)]]" aria-hidden="true">[[label]]</label>
+      <label id="element-label" hidden$="[[!_showLabel(label)]]" aria-hidden="true">[[label]]</label>
 
       <div class$="files-container [[_getMultipleClass(multiple)]]">
         <div class="files-wrapper" hidden$="[[!showFilesContainer]]">
@@ -231,6 +66,29 @@ Custom property | Description | Default
                 <div class="file-name-wrapper">
                   <span class="file-name" title="[[file.file_name]]">[[file.file_name]]</span>
                 </div>
+
+                <template is="dom-if" if="[[_showReadonlyType(file.type)]]">
+                  <div class="file-type-input-wrapper">
+                    <paper-input class="file-type-input" label="[[fileTypesLabel]]" 
+                      value="[[_getFileTypeStr(file.type)]]"
+                      placeholder="&#8212;" readonly></paper-input>
+                  </div>
+                </template>
+                <template is="dom-if" if="[[_showFileType(fileTypes.length)]]">
+                  <!-- types dropdown -->
+                  <paper-dropdown-menu class="type-dropdown" label="[[fileTypesLabel]]" placeholder="&#8212;" noink>
+                    <paper-menu id$="typeDropdown_[[index]]" class="dropdown-content"
+                                attr-for-selected="name"
+                                on-iron-select="_typeChanged"
+                                on-iron-deselect="_typeChanged"
+                                selected={{file.type}}>
+                      <template is="dom-repeat" items="[[fileTypes]]" as="fileType">
+                        <paper-item name="[[fileType.id]]">[[fileType.name]]</paper-item>
+                      </template>
+                    </paper-menu>
+                  </paper-dropdown-menu>
+                </template>
+
               </div>
               <div class$="file-actions [[_getFileSelectedClass(file)]]">
                 <!-- download btn if file was uploaded -->
@@ -245,8 +103,8 @@ Custom property | Description | Default
 
                 <paper-button class="change-button"
                               on-tap="_changeFile"
-                              disabled$="[[_showDownloadBtn(file)]]"
-                              hidden$="[[_showDownloadBtn(file)]]">
+                              disabled$="[[readonly]]"
+                              hidden$="[[readonly]]">
                   Change
                 </paper-button>
 
@@ -353,6 +211,31 @@ Custom property | Description | Default
           noFileAttachedMsg: {
             type: String,
             value: 'No file attached'
+          },
+          fileModel: {
+            type: Object,
+            value: null
+          },
+          useDeleteEvents: {
+            type: Boolean,
+            value: function() { 
+              return false; 
+            }
+          },
+          activateFileTypes: {
+            type: Boolean,
+            value: function() { 
+              return false; 
+            },
+            reflectToAttribute: true
+          },
+          fileTypes: {
+            type: Array,
+            value: []
+          },
+          fileTypesLabel: {
+            type: String,
+            value: 'File Type'
           }
         },
 
@@ -367,6 +250,27 @@ Custom property | Description | Default
           if (!Array.isArray(this.files)) {
             this.files = [];
           }
+        },
+
+        _showFileType: function(fileTypesLength) {
+          return this.activateFileTypes && fileTypesLength > 0 && this.readonly === false;
+        },
+
+        _showReadonlyType(fileType) {
+          return this.readonly && this.activateFileTypes;
+        },
+
+        _getFileTypeStr: function(fileType) {
+          if (this.fileTypes.length > 0) {
+            var type = this.fileTypes.filter(function(type) {
+              return parseInt(type.id, 10) === parseInt(fileType, 10);
+            })[0];
+            if (type) {
+              return type.name;
+            }
+            return null;
+          }
+          return null;
         },
 
         _showLabel: function(label) {
@@ -390,7 +294,7 @@ Custom property | Description | Default
         },
 
         _showDownloadBtn: function(file) {
-          if (file && file.path !== '') {
+          if (file && typeof file.path === 'string' && file.path !== '') {
             return true;
           }
           return false;
@@ -412,61 +316,101 @@ Custom property | Description | Default
           }
         },
 
+        _typeChanged: function(event) {
+          // var typeVal = Polymer.dom(event).localTarget.selected;
+          // console.log(event.model.index, typeVal);
+          return;
+        },
+
         _replaceFile: function(newFile) {
-          if (this.changeFileIndex >= 0) {
+          if (this.changeFileIndex >= 0 && newFile) {
             this.$.fileInput.setAttribute('multiple', this.multiple);
-            this.set('disabled', false);
+            // this.set('disabled', false);
             if (this.files[this.changeFileIndex]) {
-              this.set('files.' + this.changeFileIndex, {
-                id: '',
-                file_name: newFile.name,
-                path: '',
-                raw: newFile
-              });
+              if (this.multiple) {
+                // check for already selected
+                var fileAlreadySelected = this._checkFileAlreadySelected(newFile);
+                if (fileAlreadySelected.length > 0) {
+                  this._displayAlreadySelectedWarning(fileAlreadySelected);
+                  this.changeFileIndex = -1;
+                  // reset file input
+                  this.$.fileInput.value = null;
+                  return;
+                }
+              }
+              var oldFile = this.files[this.changeFileIndex];
+              var newFileObj = JSON.parse(JSON.stringify(oldFile));
+              newFileObj.file_name = newFile.name;
+              newFileObj.raw = newFile; 
+              newFileObj.path = null;
+              this.set('files.' + this.changeFileIndex, newFileObj);
             }
             this.changeFileIndex = -1;
+            // reset file input
+            this.$.fileInput.value = null;
             return true
           }
+          this.changeFileIndex = -1;
           return false;
         },
 
         _addMultipleFiles: function(files) {
           var filesAlreadySelected = [];
           for (var i = 0; i < files.length; i++) {
-            var fileAlreadySelected = this.files.filter(function(f) {
-              return f.file_name === files[i].name && f.path === '';
-            });
+            var fileAlreadySelected = this._checkFileAlreadySelected(files[i]);
             if (fileAlreadySelected.length === 0) {
-              this.push('files', {
-                id: '',
-                file_name: files[i].name,
-                path: '',
-                raw: files[i]
-              });
+              
+              var fileObj = this._getFileModel(); 
+              fileObj.file_name = files[i].name;
+              fileObj.raw = files[i];
+              
+              this.push('files', fileObj);
             } else {
               filesAlreadySelected.push(fileAlreadySelected[0]);
             }
           }
           if (filesAlreadySelected.length > 0) {
-            // show a warning with the already selected files
-            var toastWarningMessage = '<p><strong>The following file are already selected:</strong><p>';
-            filesAlreadySelected.forEach(function(alreadySelectedFile) {
-              toastWarningMessage += '<p>' + alreadySelectedFile.file_name + '</p>';
-            });
-            Polymer.dom(this.$.fileAlreadySelectedToast).innerHTML = toastWarningMessage;
-            this.$.fileAlreadySelectedToast.open();
+            this._displayAlreadySelectedWarning(filesAlreadySelected);
             filesAlreadySelected = [];
+          }
+        },
+
+        _checkFileAlreadySelected: function(file) {
+          var fileAlreadySelected = this.files.filter(function(f) {
+            return f.file_name === file.name && (f.path === '' || f.path === null || typeof f.path === 'undefined');
+          });
+          return fileAlreadySelected;
+        },
+
+        _displayAlreadySelectedWarning(filesAlreadySelected) {
+          // show a warning with the already selected files
+          var toastWarningMessage = '<p><strong>The following file are already selected:</strong><p>';
+          filesAlreadySelected.forEach(function(alreadySelectedFile) {
+            toastWarningMessage += '<p>' + alreadySelectedFile.file_name + '</p>';
+          });
+          Polymer.dom(this.$.fileAlreadySelectedToast).innerHTML = toastWarningMessage;
+          this.$.fileAlreadySelectedToast.open();
+        },
+
+        _getFileModel: function() {
+          if (this.fileModel) {
+            return JSON.parse(JSON.stringify(this.fileModel));
+          } else {
+            return {
+              id: null,
+              file_name: null,
+              path: null,
+              raw: null
+            };
           }
         },
 
         _addSingleFile: function(file) {
           if (file) {
-            var fileObj = {
-              id: '',
-              file_name: file.name,
-              path: '',
-              raw: file
-            };
+            var fileObj = this._getFileModel(); 
+            fileObj.file_name = file.name;
+            fileObj.raw = file;
+            
             if (this.files.length === 0) {
               // add file
               this.push('files', fileObj);
@@ -499,7 +443,7 @@ Custom property | Description | Default
         _changeFile: function(e) {
           if (e.model.index >= 0) {
             this.changeFileIndex = e.model.index;
-            this.set('disabled', true);
+            // this.set('disabled', true);
             this.$.fileInput.removeAttribute('multiple');
             this._openFileChooser();
           }
@@ -508,11 +452,20 @@ Custom property | Description | Default
         _deleteFile: function(e) {
           if (!this.multiple) {
             if (this.files.length > 0) {
-              this.set('files', []);
+              if (this.useDeleteEvents) {
+                this.fire('delete-file', {file: this.files[0], index: 0});
+              } else {
+                this.set('files', []);
+              }
+              this.$.fileInput.value = null;
             }
           } else {
             if (typeof e.model.index === 'number' && e.model.index >= 0) {
+              if (this.useDeleteEvents) {
+                this.fire('delete-file', {file: this.files[e.model.index], index: e.model.index});
+              } else {
                 this.splice('files', e.model.index, 1);
+              }
             }
           }
         },
