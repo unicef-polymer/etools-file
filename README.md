@@ -7,6 +7,7 @@ The component doesn't upload the files, it just manages an array of them, which 
 ![alt tag](etools-file-examples.png)
 ![alt tag](etools-file-error.png)
 ![alt tag](etools-file-readonly-no-file-attached.png)
+![alt tag](etools-file-with-types.png)
 
 ## Usage
 
