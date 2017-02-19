@@ -38,6 +38,12 @@ Properties:
 * invalid, Boolean, default: false
 * errorMessage, String, default: ''
 * noFileAttachedMsg, String, default: 'No file attached'
+* fileModel, Object, default null, file object model
+* useDeleteEvents Boolean, default false
+* activateFileTypes, Boolean, default false
+* fileTypes, Array, default []
+* fileTypesLabel, String, default 'File Type'
+
 
 ## Styling
 
@@ -54,6 +60,12 @@ Custom property | Description | Default
 `--etools-file-actions-multiple` | Mixin applied to file action buttons container if multiple is `true` | `{}`
 `--etools-file-actions-single` | Mixin applied to file action buttons container for single file selection | `{}`
 `--etools-file-error` | Mixin applied to the error message element | `{}`
+`--etools-file-type-underline-color` | File type underline color | `rgba(0, 0, 0, 0.12)`
+`--etools-file-area-with-type-border-color` | File area with type underline color | `rgba(0, 0, 0, 0.12)`
+`--etools-file-label` | File type underline color | `rgba(0, 0, 0, 0.12)`
+`--etools-file-area-with-type` | File area with type mixin | `{}`
+`--etools-file-upload-button-paper-btn` | Upload btn paper-button mixin | `{}`
+`--etools-file-upload-button` | Upload button mixin | `{}`
 
 ## Install
 ```bash
