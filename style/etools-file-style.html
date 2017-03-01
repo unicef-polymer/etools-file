@@ -61,7 +61,8 @@
         @apply(--etools-file-filename-container);
       }
       :host([readonly]) .selected-file-container {
-        @apply(--etools-file-readonly-filename-container);
+        max-width: calc(100% - 145px);
+        @apply(--etools-file-readonly-filename-container);        
       }
       .file-actions {
         @apply(--layout-horizontal);
@@ -84,9 +85,6 @@
       }
       .file-actions.only-selected {
         width: 145px;
-      }
-      :host([readonly]) .selected-file-container {
-        max-width: calc(100% - 130px);
       }
       :host([readonly]) .file-actions {
         width: 130px;
