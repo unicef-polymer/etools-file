@@ -111,7 +111,7 @@ Custom property | Description | Default
                 <paper-button class="delete-button"
                               on-tap="_deleteFile"
                               disabled$="[[readonly]]"
-                              hidden$="[[_hideDeleteBtn(hideDeleteBtn, readonly, files.length)]]">
+                              hidden$="[[_hideDeleteBtn(hideDeleteBtn, readonly, files)]]">
                   Delete
                 </paper-button>
               </div>
