@@ -48,7 +48,7 @@ Custom property | Description | Default
 
   <template>
     <style include="etools-file-style">
-      
+
     </style>
 
     <paper-input-container always-float-label disabled$="[[disabled]]" invalid$="[[invalid]]">
@@ -69,7 +69,7 @@ Custom property | Description | Default
 
                 <template is="dom-if" if="[[_showReadonlyType(file.type, readonly)]]">
                   <div class="file-type-input-wrapper">
-                    <paper-input class="file-type-input" label="[[fileTypesLabel]]" 
+                    <paper-input class="file-type-input" label="[[fileTypesLabel]]"
                       value="[[_getFileTypeStr(file.type)]]"
                       placeholder="&#8212;" readonly></paper-input>
                   </div>
@@ -111,7 +111,7 @@ Custom property | Description | Default
                 <paper-button class="delete-button"
                               on-tap="_deleteFile"
                               disabled$="[[readonly]]"
-                              hidden$="[[readonly]]">
+                              hidden$="[[_hideDeleteBtn(hideDeleteBtn, readonly)]]">
                   Delete
                 </paper-button>
               </div>
@@ -218,14 +218,14 @@ Custom property | Description | Default
           },
           useDeleteEvents: {
             type: Boolean,
-            value: function() { 
-              return false; 
+            value: function() {
+              return false;
             }
           },
           activateFileTypes: {
             type: Boolean,
-            value: function() { 
-              return false; 
+            value: function() {
+              return false;
             },
             reflectToAttribute: true
           },
@@ -236,6 +236,10 @@ Custom property | Description | Default
           fileTypesLabel: {
             type: String,
             value: 'File Type'
+          },
+          hideDeleteBtn: {
+            type: Boolean,
+            reflectToAttribute: true,
           }
         },
 
@@ -251,7 +255,9 @@ Custom property | Description | Default
             this.files = [];
           }
         },
-
+        _hideDeleteBtn: function(){
+          return this.readonly || this.hideDeleteBtn;
+        },
         _showFileType: function(fileTypesLength, readonly) {
           return this.activateFileTypes && fileTypesLength > 0 && readonly === false;
         },
@@ -341,7 +347,7 @@ Custom property | Description | Default
               var oldFile = this.files[this.changeFileIndex];
               var newFileObj = JSON.parse(JSON.stringify(oldFile));
               newFileObj.file_name = newFile.name;
-              newFileObj.raw = newFile; 
+              newFileObj.raw = newFile;
               newFileObj.path = null;
               this.set('files.' + this.changeFileIndex, newFileObj);
             }
@@ -359,11 +365,11 @@ Custom property | Description | Default
           for (var i = 0; i < files.length; i++) {
             var fileAlreadySelected = this._checkFileAlreadySelected(files[i]);
             if (fileAlreadySelected.length === 0) {
-              
-              var fileObj = this._getFileModel(); 
+
+              var fileObj = this._getFileModel();
               fileObj.file_name = files[i].name;
               fileObj.raw = files[i];
-              
+
               this.push('files', fileObj);
             } else {
               filesAlreadySelected.push(fileAlreadySelected[0]);
@@ -407,10 +413,10 @@ Custom property | Description | Default
 
         _addSingleFile: function(file) {
           if (file) {
-            var fileObj = this._getFileModel(); 
+            var fileObj = this._getFileModel();
             fileObj.file_name = file.name;
             fileObj.raw = file;
-            
+
             if (this.files.length === 0) {
               // add file
               this.push('files', fileObj);
