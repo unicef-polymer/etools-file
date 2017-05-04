@@ -111,7 +111,7 @@ Custom property | Description | Default
                 <paper-button class="delete-button"
                               on-tap="_deleteFile"
                               disabled$="[[readonly]]"
-                              hidden$="[[_hideDeleteBtn(hideDeleteBtn, readonly)]]">
+                              hidden$="[[_hideDeleteBtn(hideDeleteBtn, readonly, files.length)]]">
                   Delete
                 </paper-button>
               </div>
@@ -194,7 +194,8 @@ Custom property | Description | Default
           readonly: {
             type: Boolean,
             value: false,
-            reflectToAttribute: true
+            reflectToAttribute: true,
+            observer: '_readonlyChanged'
           },
           invalid: {
             type: Boolean,
@@ -255,6 +256,11 @@ Custom property | Description | Default
             this.files = [];
           }
         },
+        _readonlyChanged: function(newValue) {
+          if (newValue) {
+            this.set('hideDeleteBtn', true);
+          }
+        },
         _hideDeleteBtn: function(){
           return this.readonly || this.hideDeleteBtn;
         },
@@ -291,7 +297,8 @@ Custom property | Description | Default
           if (filesLength === 0 && readonly === true) {
             return false;
           }
-
+          //reset hideDeleteBtn here because binding doesn't reset it
+          this.set('hideDeleteBtn', false);
           return true;
         },
 
