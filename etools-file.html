@@ -262,14 +262,18 @@ Custom property | Description | Default
           }
         },
         _hideDeleteBtn: function(file) {
+          if (this.readonly) {
+            return true;
+          }
           if (!this.multiple && (!this.files || !this.files.length)) {
+            //reset necessary because data binding doesn't seem to work in all expected cases
             this.set('hideDeleteBtn', false);
             return false;
           }
           if (this.multiple && this.hideDeleteBtn) {
             return this._showDownloadBtn(file);
           }
-          return this.readonly || this.hideDeleteBtn;
+          return this.hideDeleteBtn;
         },
         _showFileType: function(fileTypesLength, readonly) {
           return this.activateFileTypes && fileTypesLength > 0 && readonly === false;
