@@ -120,7 +120,6 @@ Custom property | Description | Default
         </div>
 
         <div class="upload-button-wrapper" hidden$="[[!_showUploadBtn(files.length, readonly)]]">
-          <span>
             <paper-button class="upload-button"
                           on-tap="_openFileChooser"
                           title="[[uploadLabel]]"
@@ -128,7 +127,6 @@ Custom property | Description | Default
             <iron-icon icon="file-upload"></iron-icon>
             [[uploadLabel]]
             </paper-button>
-          </span>
         </div>
         <div class="no-file-and-readonly" hidden$="[[!_showNoFileAttachedMsg(files.length, readonly)]]">
           [[noFileAttachedMsg]]
