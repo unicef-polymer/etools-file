@@ -5,7 +5,7 @@
 <dom-module id="etools-file-style">
   <template>
     <style>
-        
+
       [hidden] {
         display: none !important;
       }
@@ -62,7 +62,7 @@
       }
       :host([readonly]) .selected-file-container {
         max-width: calc(100% - 145px);
-        @apply(--etools-file-readonly-filename-container);        
+        @apply(--etools-file-readonly-filename-container);
       }
       .file-actions {
         @apply(--layout-horizontal);
@@ -190,7 +190,14 @@
         width: calc(100% - 305px);
         padding-right: 15px;
         box-sizing: border-box;
-        
+
+      }
+
+      :host([activate-file-types][show-upload-date]) .file-name-wrapper {
+        width: calc(100% - 548px);
+        padding-right: 15px;
+        box-sizing: border-box;
+
       }
 
       :host([activate-file-types]) .file-name-wrapper,
@@ -202,6 +209,13 @@
         border-bottom: none;
       }
 
+      .upload-date {
+        float: left;
+        border-right: 1px solid var(--etools-file-type-underline-color, rgba(0, 0, 0, 0.12));
+        padding-right: 15px;
+        margin-right: 15px;
+        min-width: 95px;
+      }
       .file-type-input-wrapper,
       .type-dropdown {
         width: 258px;

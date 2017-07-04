@@ -12,6 +12,8 @@
 <link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="../paper-item/paper-item.html">
 
+<link rel="import" href="behaviors/date-behavior.html">
+
 <link rel="import" href="style/etools-file-style.html">
 <!--
 `etools-file`
@@ -62,11 +64,20 @@ Custom property | Description | Default
             <div class="file-area">
 
               <div class$="selected-file-container [[_getFileSelectedClass(file)]]">
+                <template is="dom-if" if="[[showUploadDate]]">
+                  <div class="upload-date">
+                    <paper-input-container always-float-label focused="false">
+                      <label slot="label">Upload Date</label>
+                      <div class="paper-input-input">
+                        [[_formatUploadDate(file.upload_date)]]
+                      </div>
+                    </paper-input-container>
+                  </div>
+                </template>
                 <iron-icon class="file-icon" icon="attachment"></iron-icon>
                 <div class="file-name-wrapper">
                   <span class="file-name" title="[[file.file_name]]">[[file.file_name]]</span>
                 </div>
-
                 <template is="dom-if" if="[[_showReadonlyType(file.type, readonly)]]">
                   <div class="file-type-input-wrapper">
                     <paper-input class="file-type-input" label="[[fileTypesLabel]]"
@@ -90,6 +101,7 @@ Custom property | Description | Default
                 </template>
 
               </div>
+
               <div class$="file-actions [[_getFileSelectedClass(file)]]">
                 <!-- download btn if file was uploaded -->
                 <paper-button class="download-button"
@@ -115,11 +127,13 @@ Custom property | Description | Default
                   Delete
                 </paper-button>
               </div>
+
             </div>
           </template>
         </div>
 
         <div class="upload-button-wrapper" hidden$="[[!_showUploadBtn(files.length, readonly)]]">
+          <span>
             <paper-button class="upload-button"
                           on-tap="_openFileChooser"
                           title="[[uploadLabel]]"
@@ -127,6 +141,7 @@ Custom property | Description | Default
             <iron-icon icon="file-upload"></iron-icon>
             [[uploadLabel]]
             </paper-button>
+          </span>
         </div>
         <div class="no-file-and-readonly" hidden$="[[!_showNoFileAttachedMsg(files.length, readonly)]]">
           [[noFileAttachedMsg]]
@@ -161,7 +176,9 @@ Custom property | Description | Default
       Polymer({
 
         is: 'etools-file',
-
+        behaviors: [
+          etoolsFileBehaviors.DateBehavior
+        ],
         properties: {
           label: {
             type: String,
@@ -228,6 +245,13 @@ Custom property | Description | Default
             },
             reflectToAttribute: true
           },
+          showUploadDate: {
+            type: Boolean,
+            value: function() {
+              return false;
+            },
+            reflectToAttribute: true
+          },
           fileTypes: {
             type: Array,
             value: []
@@ -253,6 +277,12 @@ Custom property | Description | Default
           if (!Array.isArray(this.files)) {
             this.files = [];
           }
+        },
+        _formatUploadDate: function(uploadDate) {
+          if (!uploadDate) {
+            return '-';
+          }
+          return this.prettyDate(uploadDate);
         },
         _readonlyChanged: function(newValue) {
           if (newValue) {
