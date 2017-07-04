@@ -85,7 +85,7 @@ Custom property | Description | Default
                       placeholder="&#8212;" readonly></paper-input>
                   </div>
                 </template>
-                <template is="dom-if" if="[[_showFileType(fileTypes.length, readonly)]]">
+                <template is="dom-if" if="[[_showFileType(fileTypes.length, readonly, file.type)]]">
                   <!-- types dropdown -->
                   <paper-dropdown-menu class="type-dropdown" label="[[fileTypesLabel]]" placeholder="&#8212;" noink>
                     <paper-menu id$="typeDropdown_[[index]]" class="dropdown-content"
@@ -313,23 +313,26 @@ Custom property | Description | Default
           }
           return this.hideDeleteBtn;
         },
-        _showFileType: function(fileTypesLength, readonly) {
-          return this.activateFileTypes && fileTypesLength > 0 && readonly === false;
+        _showFileType: function(fileTypesLength, readonly, fileType) {
+          return this.activateFileTypes && fileTypesLength > 0 && !readonly && !isNaN(parseInt(fileType, 10));
         },
 
         _showReadonlyType: function(fileType, readonly) {
-          return readonly && this.activateFileTypes;
+          return  this.activateFileTypes && (readonly || isNaN(parseInt(fileType, 10)));
         },
 
         _getFileTypeStr: function(fileType) {
-          if (this.fileTypes.length > 0) {
-            var type = this.fileTypes.filter(function(type) {
-              return parseInt(type.id, 10) === parseInt(fileType, 10);
-            })[0];
-            if (type) {
-              return type.name;
-            }
+          if (!this.fileTypes.length || !fileType) {
             return null;
+          }
+          if (isNaN(parseInt(fileType,10))) { //For old types the name, not the id is sent from backend
+            return fileType;
+          }
+          var type = this.fileTypes.filter(function(type) {
+            return parseInt(type.id, 10) === parseInt(fileType, 10);
+          })[0];
+          if (type) {
+            return type.name;
           }
           return null;
         },
