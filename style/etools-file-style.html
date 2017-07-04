@@ -44,7 +44,6 @@
       .file-actions {
         display: inline-block;
       }
-
       .file-actions paper-button,
       .selected-file-container iron-icon,
       .file-name-wrapper,
@@ -174,7 +173,9 @@
       .files-container.multiple .file-area + .file-area {
         margin-top: 6px;
       }
-
+      :host([show-upload-btn-above]) .files-wrapper {
+        order: 2;
+      }
       :host([readonly]) .files-container.multiple .upload-button-wrapper {
         display: none;
       }
@@ -253,6 +254,12 @@
 
       :host([activate-file-types]) .file-area {
         border-bottom: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
+        padding: 15px;
+        @apply(--etools-file-area-with-type);
+      }
+      :host([activate-file-types][show-upload-btn-above]) .file-area {
+        border-bottom: none;
+        border-top: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
         padding: 15px;
         @apply(--etools-file-area-with-type);
       }

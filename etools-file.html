@@ -69,7 +69,7 @@ Custom property | Description | Default
                     <paper-input-container always-float-label focused="false">
                       <label slot="label">Upload Date</label>
                       <div class="paper-input-input">
-                        [[_formatUploadDate(file.upload_date)]]
+                        [[_formatUploadDate(file.upload_date, file.id)]]
                       </div>
                     </paper-input-container>
                   </div>
@@ -252,6 +252,13 @@ Custom property | Description | Default
             },
             reflectToAttribute: true
           },
+          showUploadBtnAbove: {
+            type: Boolean,
+            value: function() {
+              return false;
+            },
+            reflectToAttribute: true
+          },
           fileTypes: {
             type: Array,
             value: []
@@ -278,7 +285,10 @@ Custom property | Description | Default
             this.files = [];
           }
         },
-        _formatUploadDate: function(uploadDate) {
+        _formatUploadDate: function(uploadDate, fileId) {
+          if (!fileId) {
+            return this.prettyDate(new Date(Date.now()));
+          }
           if (!uploadDate) {
             return '-';
           }
