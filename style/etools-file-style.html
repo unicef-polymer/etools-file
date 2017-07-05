@@ -52,8 +52,8 @@
         float: left;
       }
       .selected-file-container {
-        width: calc(100% - 285px);
-        max-width: calc(100% - 285px);
+        width: calc(100% - 255px);
+        max-width: calc(100% - 255px);
         min-width: 120px;
         margin-right: 15px;
         box-sizing: border-box;
@@ -68,7 +68,7 @@
       }
       .file-actions {
         @apply(--layout-horizontal);
-        width: 270px;
+        width: 240px;
       }
       .files-container.multiple .file-actions {
         @apply(--layout-flex);
@@ -190,35 +190,25 @@
         min-width: 200px;
       }
 
-      :host([activate-file-types]) .file-name-wrapper {
-        width: calc(100% - 305px);
-        padding-right: 15px;
-        box-sizing: border-box;
-
-      }
+      :host([activate-file-types]) .file-name-wrapper,
       :host([show-upload-date]) .file-name-wrapper {
         width: calc(100% - 305px);
         padding-right: 15px;
         box-sizing: border-box;
 
       }
-
       :host([activate-file-types][show-upload-date]) .file-name-wrapper {
-        width: calc(100% - 548px);
+        width: calc(100% - 440px);
         padding-right: 15px;
         box-sizing: border-box;
-
       }
 
       :host([activate-file-types]) .file-name-wrapper,
-      :host([activate-file-types]) .selected-file-container iron-icon {
-         margin-top: 18px;
-      }
+      :host([activate-file-types]) .selected-file-container iron-icon,
       :host([show-upload-date]) .file-name-wrapper,
-      :host([show-upload-date]) .selected-file-container iron-icon {
+      :host([show-upload-date]) .selected-file-container iron-icon{
          margin-top: 18px;
       }
-
 
       :host([activate-file-types]) .selected-file-container {
         border-bottom: none;
@@ -233,6 +223,7 @@
         padding-right: 15px;
         margin-right: 15px;
         min-width: 95px;
+        height: 100%;
       }
       .file-type-input-wrapper,
       .type-dropdown {
@@ -266,11 +257,7 @@
         @apply(--etools-file-label);
       }
 
-      :host([activate-file-types]) .file-area {
-        border-bottom: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
-        padding: 15px;
-        @apply(--etools-file-area-with-type);
-      }
+      :host([activate-file-types]) .file-area,
       :host([show-upload-date]) .file-area {
         border-bottom: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
         padding: 15px;

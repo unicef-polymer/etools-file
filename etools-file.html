@@ -314,29 +314,32 @@ Custom property | Description | Default
           return this.hideDeleteBtn;
         },
         _showFileType: function(fileTypesLength, readonly, fileType) {
-          return this.activateFileTypes && fileTypesLength > 0 && !readonly && !isNaN(parseInt(fileType, 10));
+          return this.activateFileTypes && fileTypesLength > 0 && !readonly;
         },
 
         _showReadonlyType: function(fileType, readonly) {
-          return  this.activateFileTypes && (readonly || isNaN(parseInt(fileType, 10)));
+          return  this.activateFileTypes && readonly;
         },
 
         _getFileTypeStr: function(fileType) {
           if (!this.fileTypes.length || !fileType) {
             return null;
           }
-          if (isNaN(parseInt(fileType,10))) { //For old types the name, not the id is sent from backend
-            return fileType;
-          }
-          var type = this.fileTypes.filter(function(type) {
-            return parseInt(type.id, 10) === parseInt(fileType, 10);
-          })[0];
+          var type = this._findInTheFileTypesAvailable(fileType);
           if (type) {
             return type.name;
           }
           return null;
         },
-
+        _findInTheFileTypesAvailable: function(fileType) {
+          var type = this.fileTypes.filter(function(type) {
+            return parseInt(type.id, 10) === parseInt(fileType, 10);
+          });
+          if (type && type.length) {
+            return type[0];
+          }
+          return null;
+        },
         _showLabel: function(label) {
           return typeof label === 'string' && label !== '';
         },
