@@ -196,6 +196,12 @@
         box-sizing: border-box;
 
       }
+      :host([show-upload-date]) .file-name-wrapper {
+        width: calc(100% - 305px);
+        padding-right: 15px;
+        box-sizing: border-box;
+
+      }
 
       :host([activate-file-types][show-upload-date]) .file-name-wrapper {
         width: calc(100% - 548px);
@@ -208,8 +214,16 @@
       :host([activate-file-types]) .selected-file-container iron-icon {
          margin-top: 18px;
       }
+      :host([show-upload-date]) .file-name-wrapper,
+      :host([show-upload-date]) .selected-file-container iron-icon {
+         margin-top: 18px;
+      }
+
 
       :host([activate-file-types]) .selected-file-container {
+        border-bottom: none;
+      }
+      :host([show-upload-date]) .selected-file-container {
         border-bottom: none;
       }
 
@@ -257,7 +271,18 @@
         padding: 15px;
         @apply(--etools-file-area-with-type);
       }
+      :host([show-upload-date]) .file-area {
+        border-bottom: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
+        padding: 15px;
+        @apply(--etools-file-area-with-type);
+      }
       :host([activate-file-types][show-upload-btn-above]) .file-area {
+        border-bottom: none;
+        border-top: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
+        padding: 15px;
+        @apply(--etools-file-area-with-type);
+      }
+       :host([show-upload-date][show-upload-btn-above]) .file-area {
         border-bottom: none;
         border-top: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
         padding: 15px;
