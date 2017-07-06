@@ -429,8 +429,11 @@ Custom property | Description | Default
               var fileObj = this._getFileModel();
               fileObj.file_name = files[i].name;
               fileObj.raw = files[i];
-
-              this.push('files', fileObj);
+              if (this.showUploadBtnAbove) {
+                this.unshift('files', fileObj);
+              } else {
+                this.push('files', fileObj);
+              }
             } else {
               filesAlreadySelected.push(fileAlreadySelected[0]);
             }
