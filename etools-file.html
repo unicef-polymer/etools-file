@@ -66,7 +66,7 @@ Custom property | Description | Default
               <div class$="selected-file-container [[_getFileSelectedClass(file)]]">
                 <template is="dom-if" if="[[showUploadDate]]">
                   <div class="upload-date">
-                    <paper-input-container always-float-label focused="false">
+                    <paper-input-container always-float-label>
                       <label slot="label">Upload Date</label>
                       <div class="paper-input-input">
                         [[_formatUploadDate(file.upload_date, file.id)]]
