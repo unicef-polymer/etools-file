@@ -326,13 +326,13 @@ Custom property | Description | Default
           if (!this.fileTypes.length || !fileType) {
             return null;
           }
-          var type = this._findInTheFileTypesAvailable(fileType);
+          var type = this._findInAvailableFileTypes(fileType);
           if (type) {
             return type.name;
           }
           return null;
         },
-        _findInTheFileTypesAvailable: function(fileType) {
+        _findInAvailableFileTypes: function(fileType) {
           var type = this.fileTypes.filter(function(type) {
             return parseInt(type.id, 10) === parseInt(fileType, 10);
           });

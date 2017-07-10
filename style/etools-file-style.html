@@ -94,14 +94,14 @@
 
       .file-name-wrapper {
         display: inline-block;
-        width: calc(100% - 32px);
+        width: 100%;
         line-height: 24px;
         height: 24px;
       }
 
       .file-name {
         display: inline-block;
-        width: 100%;
+        width: calc(100% - 32px);
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -173,9 +173,7 @@
       .files-container.multiple .file-area + .file-area {
         margin-top: 6px;
       }
-      :host([show-upload-btn-above]) .files-wrapper {
-        order: 2;
-      }
+
       :host([readonly]) .files-container.multiple .upload-button-wrapper {
         display: none;
       }
