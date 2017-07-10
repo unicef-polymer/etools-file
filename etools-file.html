@@ -15,6 +15,7 @@
 <link rel="import" href="behaviors/date-behavior.html">
 
 <link rel="import" href="style/etools-file-style.html">
+<link rel="import" href="style/additional-columns-displayed-style.html">
 <!--
 `etools-file`
 
@@ -49,7 +50,7 @@ Custom property | Description | Default
 <dom-module id="etools-file">
 
   <template>
-    <style include="etools-file-style">
+    <style include="etools-file-style additional-columns-displayed-style">
 
     </style>
 
@@ -74,8 +75,8 @@ Custom property | Description | Default
                     </paper-input-container>
                   </div>
                 </template>
-                <iron-icon class="file-icon" icon="attachment"></iron-icon>
                 <div class="file-name-wrapper">
+                  <iron-icon class="file-icon" icon="attachment"></iron-icon>
                   <span class="file-name" title="[[file.file_name]]">[[file.file_name]]</span>
                 </div>
                 <template is="dom-if" if="[[_showReadonlyType(file.type, readonly)]]">
