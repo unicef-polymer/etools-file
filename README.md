@@ -44,6 +44,8 @@ Properties:
 * activateFileTypes, Boolean, default false
 * fileTypes, Array, default []
 * fileTypesLabel, String, default 'File Type'
+* showUploadDate, Boolean, default false
+* showUploadBtnAbove, Boolean, default false
 
 
 ## Styling

@@ -12,7 +12,10 @@
 <link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="../paper-item/paper-item.html">
 
+<link rel="import" href="behaviors/date-behavior.html">
+
 <link rel="import" href="style/etools-file-style.html">
+<link rel="import" href="style/additional-columns-displayed-style.html">
 <!--
 `etools-file`
 
@@ -47,7 +50,7 @@ Custom property | Description | Default
 <dom-module id="etools-file">
 
   <template>
-    <style include="etools-file-style">
+    <style include="etools-file-style additional-columns-displayed-style">
 
     </style>
 
@@ -62,11 +65,20 @@ Custom property | Description | Default
             <div class="file-area">
 
               <div class$="selected-file-container [[_getFileSelectedClass(file)]]">
-                <iron-icon class="file-icon" icon="attachment"></iron-icon>
+                <template is="dom-if" if="[[showUploadDate]]">
+                  <div class="upload-date">
+                    <paper-input-container always-float-label>
+                      <label slot="label">Upload Date</label>
+                      <div class="paper-input-input">
+                        [[_formatUploadDate(file.upload_date, file.id)]]
+                      </div>
+                    </paper-input-container>
+                  </div>
+                </template>
                 <div class="file-name-wrapper">
+                  <iron-icon class="file-icon" icon="attachment"></iron-icon>
                   <span class="file-name" title="[[file.file_name]]">[[file.file_name]]</span>
                 </div>
-
                 <template is="dom-if" if="[[_showReadonlyType(file.type, readonly)]]">
                   <div class="file-type-input-wrapper">
                     <paper-input class="file-type-input" label="[[fileTypesLabel]]"
@@ -74,7 +86,7 @@ Custom property | Description | Default
                       placeholder="&#8212;" readonly></paper-input>
                   </div>
                 </template>
-                <template is="dom-if" if="[[_showFileType(fileTypes.length, readonly)]]">
+                <template is="dom-if" if="[[_showFileType(fileTypes.length, readonly, file.type)]]">
                   <!-- types dropdown -->
                   <paper-dropdown-menu class="type-dropdown" label="[[fileTypesLabel]]" placeholder="&#8212;" noink>
                     <paper-menu id$="typeDropdown_[[index]]" class="dropdown-content"
@@ -90,6 +102,7 @@ Custom property | Description | Default
                 </template>
 
               </div>
+
               <div class$="file-actions [[_getFileSelectedClass(file)]]">
                 <!-- download btn if file was uploaded -->
                 <paper-button class="download-button"
@@ -115,6 +128,7 @@ Custom property | Description | Default
                   Delete
                 </paper-button>
               </div>
+
             </div>
           </template>
         </div>
@@ -163,7 +177,9 @@ Custom property | Description | Default
       Polymer({
 
         is: 'etools-file',
-
+        behaviors: [
+          etoolsFileBehaviors.DateBehavior
+        ],
         properties: {
           label: {
             type: String,
@@ -230,6 +246,20 @@ Custom property | Description | Default
             },
             reflectToAttribute: true
           },
+          showUploadDate: {
+            type: Boolean,
+            value: function() {
+              return false;
+            },
+            reflectToAttribute: true
+          },
+          showUploadBtnAbove: {
+            type: Boolean,
+            value: function() {
+              return false;
+            },
+            reflectToAttribute: true
+          },
           fileTypes: {
             type: Array,
             value: []
@@ -256,6 +286,15 @@ Custom property | Description | Default
             this.files = [];
           }
         },
+        _formatUploadDate: function(uploadDate, fileId) {
+          if (!fileId) {
+            return this.prettyDate(new Date(Date.now()));
+          }
+          if (!uploadDate) {
+            return '-';
+          }
+          return this.prettyDate(uploadDate);
+        },
         _readonlyChanged: function(newValue) {
           if (newValue) {
             this.set('hideDeleteBtn', true);
@@ -275,27 +314,33 @@ Custom property | Description | Default
           }
           return this.hideDeleteBtn;
         },
-        _showFileType: function(fileTypesLength, readonly) {
-          return this.activateFileTypes && fileTypesLength > 0 && readonly === false;
+        _showFileType: function(fileTypesLength, readonly, fileType) {
+          return this.activateFileTypes && fileTypesLength > 0 && !readonly;
         },
 
         _showReadonlyType: function(fileType, readonly) {
-          return readonly && this.activateFileTypes;
+          return  this.activateFileTypes && readonly;
         },
 
         _getFileTypeStr: function(fileType) {
-          if (this.fileTypes.length > 0) {
-            var type = this.fileTypes.filter(function(type) {
-              return parseInt(type.id, 10) === parseInt(fileType, 10);
-            })[0];
-            if (type) {
-              return type.name;
-            }
+          if (!this.fileTypes.length || !fileType) {
             return null;
+          }
+          var type = this._findInAvailableFileTypes(fileType);
+          if (type) {
+            return type.name;
           }
           return null;
         },
-
+        _findInAvailableFileTypes: function(fileType) {
+          var type = this.fileTypes.filter(function(type) {
+            return parseInt(type.id, 10) === parseInt(fileType, 10);
+          });
+          if (type && type.length) {
+            return type[0];
+          }
+          return null;
+        },
         _showLabel: function(label) {
           return typeof label === 'string' && label !== '';
         },
@@ -384,8 +429,11 @@ Custom property | Description | Default
               var fileObj = this._getFileModel();
               fileObj.file_name = files[i].name;
               fileObj.raw = files[i];
-
-              this.push('files', fileObj);
+              if (this.showUploadBtnAbove) {
+                this.unshift('files', fileObj);
+              } else {
+                this.push('files', fileObj);
+              }
             } else {
               filesAlreadySelected.push(fileAlreadySelected[0]);
             }
