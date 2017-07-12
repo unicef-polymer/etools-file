@@ -21,9 +21,9 @@ The component doesn't upload the files, it just manages an array of them, which 
 
 <etools-file files="{{multipleFiles}}" multiple readonly></etools-file>
 
-<etools-file files="{{files}}" 
-  label="Attachement (validation error shown)" 
-  invalid="[[invalid]]" 
+<etools-file files="{{files}}"
+  label="Attachement (validation error shown)"
+  invalid="[[invalid]]"
   error-message="Error message that will show only is invalid=true">
 </etools-file>
 ```
@@ -44,6 +44,8 @@ Properties:
 * activateFileTypes, Boolean, default false
 * fileTypes, Array, default []
 * fileTypesLabel, String, default 'File Type'
+* showUploadDate, Boolean, default false
+* showUploadBtnAbove, Boolean, default false
 
 
 ## Styling
@@ -84,7 +86,7 @@ You need to have `web-component-tester` installed (if not run `npm install -g we
 ```bash
 $ wtc
 ```
-or 
+or
 ```bash
 $ wtc -p
 ```
