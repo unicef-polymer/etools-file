@@ -183,7 +183,7 @@ Custom property | Description | Default
         properties: {
           label: {
             type: String,
-            value: "File attachment"
+            value: 'File attachment'
           },
           files: {
             type: Object,
@@ -305,7 +305,7 @@ Custom property | Description | Default
             return true;
           }
           if (!this.multiple && (!this.files || !this.files.length)) {
-            //reset necessary because data binding doesn't seem to work in all expected cases
+            // reset necessary because data binding doesn't seem to work in all expected cases
             this.set('hideDeleteBtn', false);
             return false;
           }
@@ -369,7 +369,7 @@ Custom property | Description | Default
 
         _getFileSelectedClass: function(file) {
           if (!this._showDownloadBtn(file)) {
-            return 'only-selected'
+            return 'only-selected';
           }
           return '';
         },
@@ -415,7 +415,7 @@ Custom property | Description | Default
             this.changeFileIndex = -1;
             // reset file input
             this.$.fileInput.value = null;
-            return true
+            return true;
           }
           this.changeFileIndex = -1;
           return false;
@@ -426,7 +426,6 @@ Custom property | Description | Default
           for (var i = 0; i < files.length; i++) {
             var fileAlreadySelected = this._checkFileAlreadySelected(files[i]);
             if (fileAlreadySelected.length === 0) {
-
               var fileObj = this._getFileModel();
               fileObj.file_name = files[i].name;
               fileObj.raw = files[i];
