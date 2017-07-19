@@ -78,6 +78,23 @@
         height: 62px;
       }
 
+      /* CSS applied if the element width is under 1024px */
+      :host([responsive-render="under-1024"]) .selected-file-container {
+        @apply(--layout-vertical);
+      }
+      :host([responsive-render="under-1024"]) .upload-date,
+      :host([responsive-render="under-1024"]) .type-dropdown {
+        border: none;
+      }
+      :host([responsive-render="under-1024"]) .upload-date,
+      :host([responsive-render="under-1024"]) .type-dropdown,
+      :host([activate-file-types][show-upload-date][responsive-render="under-1024"]) .file-name-wrapper {
+        margin: 0;
+        padding: 0;
+      }
+      :host([activate-file-types][show-upload-date][responsive-render="under-1024"]) .file-name-wrapper {
+        width: 100%;
+      }
     </style>
   </template>
 </dom-module>

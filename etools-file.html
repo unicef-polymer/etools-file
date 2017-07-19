@@ -271,6 +271,11 @@ Custom property | Description | Default
           hideDeleteBtn: {
             type: Boolean,
             reflectToAttribute: true,
+          },
+          responsiveRender: {
+            type: String,
+            value: '',
+            reflectToAttribute: true
           }
         },
 
@@ -285,6 +290,33 @@ Custom property | Description | Default
           if (!Array.isArray(this.files)) {
             this.files = [];
           }
+
+          // register window resize
+          if (!this.multiple) {
+            return;
+          }
+          window.addEventListener('resize', this._handleResize.bind(this));
+        },
+        attached: function() {
+          this.async(function() {
+            this._checkElementWidth();
+          }, 0);
+        },
+        _checkElementWidth: function() {
+          if (this.multiple) {
+            let compStyle = window.getComputedStyle(this, null);
+            let elemRenderedWidth = parseInt(compStyle.getPropertyValue('width').replace('px', ''), 10);
+            if (elemRenderedWidth < 1024) {
+              this.set('responsiveRender', 'under-1024');
+            } else {
+              this.set('responsiveRender', '');
+            }
+          }
+        },
+        _handleResize: function() {
+          this.debounce('etools-file-resize', function() {
+            this._checkElementWidth.bind(this)();
+          }.bind(this), 200);
         },
         _formatUploadDate: function(uploadDate, fileId) {
           if (!fileId) {
