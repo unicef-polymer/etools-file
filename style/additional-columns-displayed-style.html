@@ -15,19 +15,19 @@
 
       }
       :host([activate-file-types][show-upload-date]) .file-name-wrapper {
-        width: calc(100% - 440px);
+        width: calc(100% - 375px);
         padding-right: 15px;
         box-sizing: border-box;
       }
 
       :host([activate-file-types]) .file-name-wrapper,
       :host([show-upload-date]) .file-name-wrapper {
-         @apply(--layout-horizontal);
-         @apply(--layout-start-justified);
-         @apply(--layout-center);
-         box-sizing: border-box;
-         min-width: 140px;
-         min-height: 62px;
+        @apply(--layout-horizontal);
+        @apply(--layout-start-justified);
+        @apply(--layout-center);
+        box-sizing: border-box;
+        min-width: 140px;
+        min-height: 62px;
 
       }
       :host([activate-file-types]) .selected-file-container {
@@ -49,7 +49,7 @@
         padding: 15px;
         @apply(--etools-file-area-with-type);
       }
-       :host([show-upload-date][show-upload-btn-above]) .file-area {
+      :host([show-upload-date][show-upload-btn-above]) .file-area {
         border-bottom: none;
         border-top: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
         padding: 15px;
@@ -78,6 +78,28 @@
         height: 62px;
       }
 
+      /* responsive styles */
+      @media screen and (max-width: 1365px) {
+        :host .selected-file-container {
+          @apply(--layout-vertical);
+        }
+
+        :host .upload-date,
+        :host .type-dropdown {
+          border: none;
+        }
+
+        :host .upload-date,
+        :host .type-dropdown,
+        :host([activate-file-types][show-upload-date]) .file-name-wrapper {
+          margin: 0;
+          padding: 0;
+        }
+
+        :host([activate-file-types][show-upload-date]) .file-name-wrapper {
+          width: 100%;
+        }
+      }
     </style>
   </template>
 </dom-module>
