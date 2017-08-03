@@ -49,9 +49,21 @@
         padding: 15px;
         @apply(--etools-file-area-with-type);
       }
+      :host([activate-file-types][show-upload-btn-above][readonly]) .file-area:first-of-type {
+        border-bottom: none;
+        border-top: none;
+        padding: 15px;
+        @apply(--etools-file-area-with-type);
+      }
       :host([show-upload-date][show-upload-btn-above]) .file-area {
         border-bottom: none;
         border-top: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
+        padding: 15px;
+        @apply(--etools-file-area-with-type);
+      }
+      :host([show-upload-date][show-upload-btn-above][readonly]) .file-area:first-of-type {
+        border-bottom: none;
+        border-top:none;
         padding: 15px;
         @apply(--etools-file-area-with-type);
       }
