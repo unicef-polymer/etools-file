@@ -51,7 +51,9 @@ Custom property | Description | Default
 
   <template>
     <style include="etools-file-style additional-columns-displayed-style">
-
+      .toast-style {
+        min-width: 330px;
+      }
     </style>
 
     <paper-input-container always-float-label disabled$="[[disabled]]" invalid$="[[invalid]]">
@@ -166,7 +168,7 @@ Custom property | Description | Default
 
     </paper-input-container>
 
-    <paper-toast id="fileAlreadySelectedToast" fit-into="[[toastFitInto]]" always-on-top></paper-toast>
+    <paper-toast class="toast-style" id="fileAlreadySelectedToast" fit-into="[[toastFitInto]]" always-on-top></paper-toast>
 
   </template>
 
