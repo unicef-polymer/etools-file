@@ -166,7 +166,7 @@ Custom property | Description | Default
 
     </paper-input-container>
 
-    <paper-toast id="fileAlreadySelectedToast" always-on-top></paper-toast>
+    <paper-toast id="fileAlreadySelectedToast" fit-into="[[toastFitInto]]" always-on-top></paper-toast>
 
   </template>
 
@@ -271,7 +271,8 @@ Custom property | Description | Default
           hideDeleteBtn: {
             type: Boolean,
             reflectToAttribute: true,
-          }
+          },
+          toastFitInto: Object
         },
 
         observers: [
