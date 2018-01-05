@@ -11,9 +11,7 @@
         }
 
         static get properties() {
-          console.log('properties');
-          let a = {
-
+          return {
             fileData: {
               type: Array,
               value: [
@@ -104,8 +102,6 @@
               notify: true
             }
           };
-          console.log(a);
-          return a;
         }
 
         ready() {

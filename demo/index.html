@@ -93,49 +93,53 @@
     </dom-bind>
   </demo-snippet>
 
-  <!-- <h3>Custom file array, with ids and other data, all not used properties will remain unchanged</h3>
+  <h3>Custom file array, with ids and other data, all unused properties will remain unchanged</h3>
 
   <demo-snippet>
-    <template is="dom-bind">
-      <demo-helper single-file-data="{{singleFileData}}"
-        file-model={{fileModel}}
-        multiple-file-data={{multipleFilesData}}
-        file-types={{fileTypes}}></demo-helper>
+    <dom-bind>
+      <template is="dom-bind">
+        <demo-helper single-file-data="{{singleFileData}}"
+          file-model={{fileModel}}
+          multiple-file-data={{multipleFilesData}}
+          file-types={{fileTypes}}></demo-helper>
 
-      <div class="layout horizontal wrap" style="margin: 30px 0;">
-        <etools-file files=[[singleFileData]] file-model="[[fileModel]]" label="Attachment"></etools-file>
-      </div>
+        <div class="layout horizontal wrap" style="margin: 30px 0;">
+          <etools-file files=[[singleFileData]] file-model="[[fileModel]]" label="Attachment"></etools-file>
+        </div>
 
-      <div class="layout horizontal wrap" style="margin: 30px 0;">
-        <etools-file files=[[multipleFilesData]]
-          file-model="[[fileModel]]"
-          file-types=[[fileTypes]]
-          label="Attachment" multiple activate-file-types></etools-file>
-      </div>
+        <div class="layout horizontal wrap" style="margin: 30px 0;">
+          <etools-file files=[[multipleFilesData]]
+            file-model="[[fileModel]]"
+            file-types=[[fileTypes]]
+            label="Attachment" multiple activate-file-types></etools-file>
+        </div>
 
-    </template>
+      </template>
+    </dom-bind>
   </demo-snippet>
 
   <h3>List of uploaded files with Upload Date and File Types columns and Upload File button displayed above </h3>
 
   <demo-snippet>
-    <template is="dom-bind">
-      <demo-helper single-file-data="{{singleFileData}}"
-        file-model={{fileModel}}
-        multiple-file-data={{multipleFilesData}}
-        file-types={{fileTypes}}></demo-helper>
+    <dom-bind>
+      <template is="dom-bind">
+        <demo-helper single-file-data="{{singleFileData}}"
+          file-model={{fileModel}}
+          multiple-file-data={{multipleFilesData}}
+          file-types={{fileTypes}}></demo-helper>
 
-      <div class="layout horizontal wrap" style="margin: 30px 0;">
-        <etools-file files=[[multipleFilesData]]
-          file-model="[[fileModel]]"
-          file-types=[[fileTypes]]
-          label="Attachment" multiple activate-file-types
-          show-upload-date
-          show-upload-btn-above></etools-file>
-      </div>
+        <div class="layout horizontal wrap" style="margin: 30px 0;">
+          <etools-file files=[[multipleFilesData]]
+            file-model="[[fileModel]]"
+            file-types=[[fileTypes]]
+            label="Attachment" multiple activate-file-types
+            show-upload-date
+            show-upload-btn-above></etools-file>
+        </div>
 
-    </template>
-  </demo-snippet> -->
+      </template>
+    </dom-bind>
+  </demo-snippet>
 </div>
 </body>
 </html>

@@ -164,11 +164,11 @@ Custom property | Description | Default
             multiple="[[multiple]]"
             accept="{{accept}}">
 
-      <a id="downloader" hidden></a>
-    </div>
-    <template is="dom-if" if="[[invalid]]">
-        <paper-input-error aria-live="assertive" slot="add-on">[[errorMessage]]</paper-input-error>
-    </template>
+        <a id="downloader" hidden></a>
+      </div>
+      <template is="dom-if" if="[[invalid]]">
+          <paper-input-error aria-live="assertive" slot="add-on">[[errorMessage]]</paper-input-error>
+      </template>
     </paper-input-container>
 
     <paper-toast class="toast-style" id="fileAlreadySelectedToast" fit-into="[[toastFitInto]]" always-on-top></paper-toast>
@@ -288,7 +288,6 @@ Custom property | Description | Default
         }
 
         ready() {
-          console.log('etools-file ready');
           super.ready();
           if (this.multiple && this.label === 'File attachment') {
             this.set('label', this.label + '(s)');
