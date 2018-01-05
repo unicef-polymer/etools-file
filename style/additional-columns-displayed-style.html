@@ -22,9 +22,9 @@
 
       :host([activate-file-types]) .file-name-wrapper,
       :host([show-upload-date]) .file-name-wrapper {
-        @apply(--layout-horizontal);
-        @apply(--layout-start-justified);
-        @apply(--layout-center);
+        @apply --layout-horizontal;
+        @apply --layout-start-justified;
+        @apply --layout-center;
         box-sizing: border-box;
         min-width: 140px;
         min-height: 62px;
@@ -41,31 +41,31 @@
       :host([show-upload-date]) .file-area {
         border-bottom: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
         padding: 15px;
-        @apply(--etools-file-area-with-type);
+        @apply --etools-file-area-with-type;
       }
       :host([activate-file-types][show-upload-btn-above]) .file-area {
         border-bottom: none;
         border-top: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
         padding: 15px;
-        @apply(--etools-file-area-with-type);
+        @apply --etools-file-area-with-type;
       }
       :host([activate-file-types][show-upload-btn-above][readonly]) .file-area:first-of-type {
         border-bottom: none;
         border-top: none;
         padding: 15px;
-        @apply(--etools-file-area-with-type);
+        @apply --etools-file-area-with-type;
       }
       :host([show-upload-date][show-upload-btn-above]) .file-area {
         border-bottom: none;
         border-top: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
         padding: 15px;
-        @apply(--etools-file-area-with-type);
+        @apply --etools-file-area-with-type;
       }
       :host([show-upload-date][show-upload-btn-above][readonly]) .file-area:first-of-type {
         border-bottom: none;
         border-top:none;
         padding: 15px;
-        @apply(--etools-file-area-with-type);
+        @apply --etools-file-area-with-type;
       }
       :host([show-upload-date]) .type-dropdown {
         border-left: none;
@@ -93,7 +93,7 @@
       /* responsive styles */
       @media screen and (max-width: 1365px) {
         :host .selected-file-container {
-          @apply(--layout-vertical);
+          @apply --layout-vertical;
         }
 
         :host .upload-date,

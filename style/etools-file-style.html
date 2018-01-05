@@ -24,15 +24,15 @@
           display: none;
         };
         --paper-input-error: {
-          @apply(--etools-file-error);
+          @apply --etools-file-error;
         };
       }
 
       .files-container.multiple,
       .file-area,
       .upload-button-wrapper {
-        @apply(--layout-horizontal);
-        @apply(--layout-wrap);
+        @apply --layout-horizontal;
+        @apply --layout-wrap;
       }
       .upload-button-wrapper span {
         display: inherit;
@@ -60,26 +60,26 @@
       }
       :host(:not([readonly])) .selected-file-container {
         border-bottom: 1px solid var(--etools-file-secondary-text-color, #737373);
-        @apply(--etools-file-filename-container);
+        @apply --etools-file-filename-container;
       }
       :host([readonly]) .selected-file-container {
         max-width: calc(100% - 145px);
-        @apply(--etools-file-readonly-filename-container);
+        @apply --etools-file-readonly-filename-container;
       }
       .file-actions {
-        @apply(--layout-horizontal);
+        @apply --layout-horizontal ;
         width: 240px;
       }
       .files-container.multiple .file-actions {
-        @apply(--layout-flex);
-        @apply(--layout-end-justified);
-        @apply(--etools-file-actions-multiple);
+        @apply --layout-flex ;
+        @apply --layout-end-justified;
+        @apply --etools-file-actions-multiple;
       }
       .files-container:not(.multiple) .file-actions {
-        @apply(--etools-file-actions-single);
+        @apply --etools-file-actions-single;
       }
       .files-container:not(.multiple) .file-name-wrapper {
-        @apply(--etools-file-single-file-wrapper);
+        @apply --etools-file-single-file-wrapper;
       }
       .selected-file-container.only-selected {
         max-width: calc(100% - 160px);
@@ -115,24 +115,24 @@
 
       .upload-button {
         --paper-button: {
-          @apply(--layout-flex);
-          @apply(--layout-start-justified);
+          @apply --layout-flex;
+          @apply --layout-start-justified;
           font-weight: bold;
           font-size: 14px;
           margin: 0;
           padding: 0 5px 0 0;
           min-width: 150px !important;   /*IE11 fix*/
-          @apply(--etools-file-upload-button-paper-btn);
+          @apply --etools-file-upload-button-paper-btn;
         };
         --paper-button-ink-color: rgba(255, 255, 255, 0);
-        @apply(--etools-file-upload-button);
+        @apply --etools-file-upload-button;
       }
 
       .change-button,
       .delete-button,
       .download-button {
         --paper-button: {
-          @apply(--layout-center-justified);
+          @apply --layout-center-justified;
           font-weight: bold;
           font-size: 14px;
           padding: 0;
@@ -159,12 +159,12 @@
       }
 
       .files-container.multiple .upload-button-wrapper {
-        @apply(--layout-vertical);
-        @apply(--layout-end-justified);
+        @apply --layout-vertical;
+        @apply --layout-end-justified;
       }
 
       .files-container.multiple {
-        @apply(--layout-vertical);
+        @apply --layout-vertical;
       }
 
       .files-container.multiple .files-wrapper:not([hidden]) + .upload-button-wrapper .upload-button {
@@ -180,12 +180,12 @@
       }
 
       .no-file-and-readonly {
-        @apply(--layout-vertical);
-        @apply(--layout-center-justified);
+        @apply --layout-vertical;
+        @apply --layout-center-justified;
         height: 24px;
       }
 
-      .type-dropdown paper-menu {
+      .type-dropdown paper-listbox {
         min-width: 200px;
       }
 
@@ -218,7 +218,7 @@
       }
 
       #element-label {
-        @apply(--etools-file-label);
+        @apply --etools-file-label;
       }
 
 
