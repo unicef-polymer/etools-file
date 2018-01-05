@@ -5,6 +5,7 @@
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../neon-animation/web-animations.html">
 
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-input/paper-input-container.html">
@@ -95,7 +96,7 @@ Custom property | Description | Default
                   <template is="dom-if" if="[[_showFileType(fileTypes.length, readonly, file.type)]]">
                     <!-- types dropdown -->
                     <paper-dropdown-menu class="type-dropdown" label="[[fileTypesLabel]]" placeholder="&#8212;" noink>
-                      <paper-listbox id$="typeDropdown_[[index]]" class="dropdown-content"
+                      <paper-listbox id$="typeDropdown_[[index]]" slot="dropdown-content"
                                   attr-for-selected="name"
                                   on-iron-select="_typeChanged"
                                   on-iron-deselect="_typeChanged"
