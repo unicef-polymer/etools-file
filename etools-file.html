@@ -101,7 +101,7 @@ Custom property | Description | Default
                                   on-iron-deselect="_typeChanged"
                                   selected={{file.type}}>
                         <template is="dom-repeat" items="[[fileTypes]]" as="fileType">
-                          <paper-item name="[[fileType.id]]">[[fileType.name]]</paper-item>
+                          <paper-item name$="[[fileType.id]]">[[fileType.name]]</paper-item>
                         </template>
                       </paper-listbox>
                     </paper-dropdown-menu>
@@ -277,7 +277,8 @@ Custom property | Description | Default
               type: Boolean,
               reflectToAttribute: true,
             },
-            toastFitInto: Object
+            toastFitInto: Object,
+            showFilesContainer: Boolean
           };
         }
 
