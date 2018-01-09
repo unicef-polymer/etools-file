@@ -29,7 +29,7 @@
       suite('etools-file', function() {
         test('instantiating the element works', function() {
           var element = fixture('basic');
-          assert.equal(element.is, 'etools-file');
+          expect(element).to.not.equal(undefined);
 
           assert.equal(element.files.length, 0);
           assert.equal(element.multiple, false);
