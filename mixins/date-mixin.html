@@ -1,12 +1,13 @@
 <link rel="import" href="../../moment-element/moment-import.html">
 <script>
   // @namespace etoolsFileMixins
-  window.etoolsFileMixins = window.etoolsFileMixins || {};
-  /*
-  * @polymer
-  * @mixinFunction
-  */
-  etoolsFileMixins.DateMixin = (baseClass) => class extends baseClass {
+  window.EtoolsFileMixins = window.EtoolsFileMixins || {};
+
+  /**
+   * @polymer
+   * @mixinFunction
+   */
+  EtoolsFileMixins.DateMixin = baseClass => class extends baseClass { // eslint-disable-line
 
     /**
      * Format date string to any format supported by momentjs
@@ -15,7 +16,7 @@
       if (!format) {
         format = 'D MMM YYYY';
       }
-      var date;
+      let date;
       if (dateInput instanceof Date) {
         date = dateInput;
       } else {
@@ -29,5 +30,5 @@
 
       return '';
     }
- };
+  };
 </script>

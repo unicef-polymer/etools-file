@@ -1,4 +1,4 @@
-<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
 
 <dom-module id="additional-columns-displayed-style">
@@ -7,6 +7,7 @@
       :host([show-upload-btn-above]) .files-wrapper {
         order: 2;
       }
+
       :host([activate-file-types]) .file-name-wrapper,
       :host([show-upload-date]) .file-name-wrapper {
         width: calc(100% - 305px);
@@ -14,6 +15,7 @@
         box-sizing: border-box;
 
       }
+
       :host([activate-file-types][show-upload-date]) .file-name-wrapper {
         width: calc(100% - 385px);
         padding-right: 15px;
@@ -30,9 +32,11 @@
         min-height: 62px;
 
       }
+
       :host([activate-file-types]) .selected-file-container {
         border-bottom: none;
       }
+
       :host([show-upload-date]) .selected-file-container {
         border-bottom: none;
       }
@@ -43,42 +47,50 @@
         padding: 15px;
         @apply --etools-file-area-with-type;
       }
+
       :host([activate-file-types][show-upload-btn-above]) .file-area {
         border-bottom: none;
         border-top: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
         padding: 15px;
         @apply --etools-file-area-with-type;
       }
+
       :host([activate-file-types][show-upload-btn-above][readonly]) .file-area:first-of-type {
         border-bottom: none;
         border-top: none;
         padding: 15px;
         @apply --etools-file-area-with-type;
       }
+
       :host([show-upload-date][show-upload-btn-above]) .file-area {
         border-bottom: none;
         border-top: 1px solid var(--etools-file-area-with-type-border-color, rgba(0, 0, 0, 0.12));
         padding: 15px;
         @apply --etools-file-area-with-type;
       }
+
       :host([show-upload-date][show-upload-btn-above][readonly]) .file-area:first-of-type {
         border-bottom: none;
-        border-top:none;
+        border-top: none;
         padding: 15px;
         @apply --etools-file-area-with-type;
       }
+
       :host([show-upload-date]) .type-dropdown {
         border-left: none;
       }
+
       :host([show-upload-btn-above]) .upload-button {
         margin-top: 0px !important;
         margin-bottom: 25px !important;
       }
+
       .upload-date paper-input-container {
         --paper-input-container-label-floating: {
           color: var(--secondary-text-color, #737373);
         };
       }
+
       .upload-date {
         box-sizing: border-box;
         float: left;

@@ -1,15 +1,15 @@
-<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../neon-animation/web-animations.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
 
 <link rel="import" href="../paper-input/paper-input.html">
-<link rel="import" href="../paper-input/paper-input-container.html">
-<link rel="import" href="../paper-input/paper-input-error.html">
 
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
@@ -76,7 +76,7 @@ Custom property | Description | Default
                     <div class="upload-date">
                       <paper-input-container always-float-label>
                         <label slot="label">Upload Date</label>
-                        <div  slot="input" class="paper-input-input">
+                        <div slot="input" class="paper-input-input">
                           [[_formatUploadDate(file.created, file.id)]]
                         </div>
                       </paper-input-container>
@@ -89,18 +89,18 @@ Custom property | Description | Default
                   <template is="dom-if" if="[[_showReadonlyType(file.type, readonly)]]">
                     <div class="file-type-input-wrapper">
                       <paper-input class="file-type-input" label="[[fileTypesLabel]]"
-                        value="[[_getFileTypeStr(file.type)]]"
-                        placeholder="&#8212;" readonly></paper-input>
+                                   value="[[_getFileTypeStr(file.type)]]"
+                                   placeholder="&#8212;" readonly></paper-input>
                     </div>
                   </template>
                   <template is="dom-if" if="[[_showFileType(fileTypes.length, readonly, file.type)]]">
                     <!-- types dropdown -->
                     <paper-dropdown-menu class="type-dropdown" label="[[fileTypesLabel]]" placeholder="&#8212;" noink>
                       <paper-listbox id$="typeDropdown_[[index]]" slot="dropdown-content"
-                                  attr-for-selected="name"
-                                  on-iron-select="_typeChanged"
-                                  on-iron-deselect="_typeChanged"
-                                  selected={{file.type}}>
+                                     attr-for-selected="name"
+                                     on-iron-select="_typeChanged"
+                                     on-iron-deselect="_typeChanged"
+                                     selected={{file.type}}>
                         <template is="dom-repeat" items="[[fileTypes]]" as="fileType">
                           <paper-item name$="[[fileType.id]]">[[fileType.name]]</paper-item>
                         </template>
@@ -168,427 +168,436 @@ Custom property | Description | Default
         <a id="downloader" hidden></a>
       </div>
       <template is="dom-if" if="[[invalid]]">
-          <paper-input-error aria-live="assertive" slot="add-on">[[errorMessage]]</paper-input-error>
+        <paper-input-error aria-live="assertive" slot="add-on">[[errorMessage]]</paper-input-error>
       </template>
     </paper-input-container>
 
-    <paper-toast class="toast-style" id="fileAlreadySelectedToast" fit-into="[[toastFitInto]]" always-on-top></paper-toast>
+    <paper-toast class="toast-style" id="fileAlreadySelectedToast" fit-into="[[toastFitInto]]"
+                 always-on-top></paper-toast>
 
   </template>
 
   <script>
-      'use strict';
+    'use strict';
 
-      class EtoolsFile extends etoolsFileMixins.DateMixin(Polymer.Element) {
+    /**
+     * @polymer
+     * @customElement
+     * @appliesMixin EtoolsFileMixins.DateMixin
+     */
+    class EtoolsFile extends EtoolsFileMixins.DateMixin(Polymer.Element) {
 
-        static get is() {
-          return 'etools-file'
-        }
+      static get is() {
+        return 'etools-file';
+      }
 
-        static get properties() {
-          return {
-            label: {
-              type: String,
-              value: 'File attachment'
+      static get properties() {
+        return {
+          label: {
+            type: String,
+            value: 'File attachment'
+          },
+          files: {
+            type: Object,
+            value: function() {
+              return [];
             },
-            files: {
-              type: Object,
-              value: function() {
-                return [];
-              },
-              notify: true
+            notify: true
+          },
+          multiple: {
+            type: Boolean,
+            value: false
+          },
+          disabled: {
+            type: Boolean,
+            value: false
+          },
+          accept: {
+            type: String
+          },
+          uploadLabel: {
+            type: String,
+            value: 'Upload File'
+          },
+          readonly: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true,
+            observer: '_readonlyChanged'
+          },
+          invalid: {
+            type: Boolean,
+            value: function() {
+              return false;
+            }
+          },
+          errorMessage: {
+            type: String,
+            value: function() {
+              return '';
+            }
+          },
+          noFileAttachedMsg: {
+            type: String,
+            value: 'No file attached'
+          },
+          fileModel: {
+            type: Object,
+            value: null
+          },
+          useDeleteEvents: {
+            type: Boolean,
+            value: function() {
+              return false;
+            }
+          },
+          activateFileTypes: {
+            type: Boolean,
+            value: function() {
+              return false;
             },
-            multiple: {
-              type: Boolean,
-              value: false
+            reflectToAttribute: true
+          },
+          showUploadDate: {
+            type: Boolean,
+            value: function() {
+              return false;
             },
-            disabled: {
-              type: Boolean,
-              value: false
+            reflectToAttribute: true
+          },
+          showUploadBtnAbove: {
+            type: Boolean,
+            value: function() {
+              return false;
             },
-            accept: {
-              type: String
-            },
-            uploadLabel: {
-              type: String,
-              value: 'Upload File'
-            },
-            readonly: {
-              type: Boolean,
-              value: false,
-              reflectToAttribute: true,
-              observer: '_readonlyChanged'
-            },
-            invalid: {
-              type: Boolean,
-              value: function() {
-                return false;
-              }
-            },
-            errorMessage: {
-              type: String,
-              value: function() {
-                return '';
-              }
-            },
-            noFileAttachedMsg: {
-              type: String,
-              value: 'No file attached'
-            },
-            fileModel: {
-              type: Object,
-              value: null
-            },
-            useDeleteEvents: {
-              type: Boolean,
-              value: function() {
-                return false;
-              }
-            },
-            activateFileTypes: {
-              type: Boolean,
-              value: function() {
-                return false;
-              },
-              reflectToAttribute: true
-            },
-            showUploadDate: {
-              type: Boolean,
-              value: function() {
-                return false;
-              },
-              reflectToAttribute: true
-            },
-            showUploadBtnAbove: {
-              type: Boolean,
-              value: function() {
-                return false;
-              },
-              reflectToAttribute: true
-            },
-            fileTypes: {
-              type: Array,
-              value: []
-            },
-            fileTypesLabel: {
-              type: String,
-              value: 'File Type'
-            },
-            hideDeleteBtn: {
-              type: Boolean,
-              reflectToAttribute: true,
-            },
-            toastFitInto: Object,
-            showFilesContainer: Boolean
-          };
-        }
+            reflectToAttribute: true
+          },
+          fileTypes: {
+            type: Array,
+            value: []
+          },
+          fileTypesLabel: {
+            type: String,
+            value: 'File Type'
+          },
+          hideDeleteBtn: {
+            type: Boolean,
+            reflectToAttribute: true
+          },
+          toastFitInto: Object,
+          showFilesContainer: Boolean
+        };
+      }
 
-        static get observers() {
-         return [
-           '_filesChange(files.*)'
-          ];
-        }
+      static get observers() {
+        return [
+          '_filesChange(files.*)'
+        ];
+      }
 
-        ready() {
-          super.ready();
-          if (this.multiple && this.label === 'File attachment') {
-            this.set('label', this.label + '(s)');
-          }
-          if (!Array.isArray(this.files)) {
-            this.files = [];
-          }
+      ready() {
+        super.ready();
+        if (this.multiple && this.label === 'File attachment') {
+          this.set('label', this.label + '(s)');
         }
-        _formatUploadDate(uploadDate, fileId) {
-          if (!fileId) {
-            return this.prettyDate(new Date(Date.now()));
-          }
-          if (!uploadDate) {
-            return '-';
-          }
-          return this.prettyDate(uploadDate);
+        if (!Array.isArray(this.files)) {
+          this.files = [];
         }
-        _readonlyChanged(newValue) {
-          if (newValue) {
-            this.set('hideDeleteBtn', true);
-          }
-        }
-        _hideDeleteBtn(file) {
-          if (this.readonly) {
-            return true;
-          }
-          if (!this.multiple && (!this.files || !this.files.length)) {
-            // reset necessary because data binding doesn't seem to work in all expected cases
-            this.set('hideDeleteBtn', false);
-            return false;
-          }
-          if (this.multiple && this.hideDeleteBtn) {
-            return this._showDownloadBtn(file);
-          }
-          return this.hideDeleteBtn;
-        }
-        _showFileType(fileTypesLength, readonly, fileType) {
-          return this.activateFileTypes && fileTypesLength > 0 && !readonly;
-        }
+      }
 
-        _showReadonlyType(fileType, readonly) {
-          return  this.activateFileTypes && readonly;
+      _formatUploadDate(uploadDate, fileId) {
+        if (!fileId) {
+          return this.prettyDate(new Date(Date.now()));
         }
+        if (!uploadDate) {
+          return '-';
+        }
+        return this.prettyDate(uploadDate);
+      }
 
-        _getFileTypeStr(fileType) {
-          if (!this.fileTypes.length || !fileType) {
-            return null;
-          }
-          var type = this._findInAvailableFileTypes(fileType);
-          if (type) {
-            return type.name;
-          }
-          return null;
+      _readonlyChanged(newValue) {
+        if (newValue) {
+          this.set('hideDeleteBtn', true);
         }
-        _findInAvailableFileTypes(fileType) {
-          var type = this.fileTypes.filter(function(type) {
-            return parseInt(type.id, 10) === parseInt(fileType, 10);
-          });
-          if (type && type.length) {
-            return type[0];
-          }
-          return null;
-        }
-        _showLabel(label) {
-          return typeof label === 'string' && label !== '';
-        }
+      }
 
-        _showUploadBtn(filesLength, readonly) {
-          if (!this.multiple && filesLength > 0) {
-            return false;
-          }
-
-          if (filesLength === 0 && readonly === true) {
-            return false;
-          }
+      _hideDeleteBtn(file) {
+        if (this.readonly) {
           return true;
         }
-
-        _showNoFileAttachedMsg(filesLength, readonly) {
-          return filesLength === 0 && readonly === true;
+        if (!this.multiple && (!this.files || !this.files.length)) {
+          // reset necessary because data binding doesn't seem to work in all expected cases
+          this.set('hideDeleteBtn', false);
+          return false;
         }
+        if (this.multiple && this.hideDeleteBtn) {
+          return this._showDownloadBtn(file);
+        }
+        return this.hideDeleteBtn;
+      }
 
-        _showDownloadBtn(file) {
-          if (file && typeof file.path === 'string' && file.path !== '') {
-            return true;
-          }
+      _showFileType(fileTypesLength, readonly, fileType) {
+        return this.activateFileTypes && fileTypesLength > 0 && !readonly;
+      }
+
+      _showReadonlyType(fileType, readonly) {
+        return this.activateFileTypes && readonly;
+      }
+
+      _getFileTypeStr(fileType) {
+        if (!this.fileTypes.length || !fileType) {
+          return null;
+        }
+        let type = this._findInAvailableFileTypes(fileType);
+        if (type) {
+          return type.name;
+        }
+        return null;
+      }
+
+      _findInAvailableFileTypes(fileType) {
+        let type = this.fileTypes.filter(function(type) {
+          return parseInt(type.id, 10) === parseInt(fileType, 10);
+        });
+        if (type && type.length) {
+          return type[0];
+        }
+        return null;
+      }
+
+      _showLabel(label) {
+        return typeof label === 'string' && label !== '';
+      }
+
+      _showUploadBtn(filesLength, readonly) {
+        if (!this.multiple && filesLength > 0) {
           return false;
         }
 
-        _getFileSelectedClass(file) {
-          if (!this._showDownloadBtn(file)) {
-            return 'only-selected';
-          }
-          return '';
-        }
+        return !(filesLength === 0 && readonly === true);
+      }
 
-        _openFileChooser() {
-          var elem = this.$.fileInput;
-          if (elem && document.createEvent) {
-            var evt = document.createEvent('MouseEvents');
-            evt.initEvent('click', true, false);
-            elem.dispatchEvent(evt);
+      _showNoFileAttachedMsg(filesLength, readonly) {
+        return filesLength === 0 && readonly === true;
+      }
+
+      _showDownloadBtn(file) {
+        return file && typeof file.path === 'string' && file.path !== '';
+      }
+
+      _getFileSelectedClass(file) {
+        return !this._showDownloadBtn(file) ? 'only-selected' : '';
+      }
+
+      _openFileChooser() {
+        let elem = this.$.fileInput;
+        if (elem && document.createEvent) {
+          let evt = document.createEvent('MouseEvents');
+          evt.initEvent('click', true, false);
+          elem.dispatchEvent(evt);
+        }
+      }
+
+      _typeChanged(event) {
+        // var typeVal = event.target.selected;
+        // console.log(event.model.index, typeVal);
+        return;
+      }
+
+      _replaceFile(newFile) {
+        if (this.changeFileIndex >= 0 && newFile) {
+          this.$.fileInput.setAttribute('multiple', this.multiple);
+          // this.set('disabled', false);
+          if (this.files[this.changeFileIndex]) {
+            if (this.multiple) {
+              // check for already selected
+              let fileAlreadySelected = this._checkFileAlreadySelected(newFile);
+              if (fileAlreadySelected.length > 0) {
+                this._displayAlreadySelectedWarning(fileAlreadySelected);
+                this.changeFileIndex = -1;
+                // reset file input
+                this.$.fileInput.value = null;
+                return;
+              }
+            }
+            let oldFile = this.files[this.changeFileIndex];
+            let newFileObj = JSON.parse(JSON.stringify(oldFile));
+            newFileObj.file_name = newFile.name;
+            newFileObj.raw = newFile;
+            newFileObj.path = null;
+            this.set('files.' + this.changeFileIndex, newFileObj);
+          }
+          this.changeFileIndex = -1;
+          // reset file input
+          this.$.fileInput.value = null;
+          return true;
+        }
+        this.changeFileIndex = -1;
+        return false;
+      }
+
+      _addMultipleFiles(files) {
+        let filesAlreadySelected = [];
+        for (let i = 0; i < files.length; i++) {
+          let fileAlreadySelected = this._checkFileAlreadySelected(files[i]);
+          if (fileAlreadySelected.length === 0) {
+            let fileObj = this._getFileModel();
+            fileObj.file_name = files[i].name;
+            fileObj.raw = files[i];
+            if (this.showUploadBtnAbove) {
+              this.unshift('files', fileObj);
+            } else {
+              this.push('files', fileObj);
+            }
+          } else {
+            filesAlreadySelected.push(fileAlreadySelected[0]);
           }
         }
+        if (filesAlreadySelected.length > 0) {
+          this._displayAlreadySelectedWarning(filesAlreadySelected);
+        }
+      }
 
-        _typeChanged(event) {
-          // var typeVal = Polymer.dom(event).localTarget.selected;
-          // console.log(event.model.index, typeVal);
+      _checkFileAlreadySelected(file) {
+        let fileAlreadySelected = this.files.filter(function(f) {
+          return f.file_name === file.name && (f.path === '' || f.path === null || typeof f.path === 'undefined');
+        });
+        return fileAlreadySelected;
+      }
+
+      _displayAlreadySelectedWarning(filesAlreadySelected) {
+        // show a warning with the already selected files
+        let toastWarningMessage = '<p><strong>The following files are already selected:</strong><p>';
+        filesAlreadySelected.forEach(function(alreadySelectedFile) {
+          toastWarningMessage += '<p>' + alreadySelectedFile.file_name + '</p>';
+        });
+        this.$.fileAlreadySelectedToast.innerHTML = toastWarningMessage;
+        this.$.fileAlreadySelectedToast.open();
+      }
+
+      _getFileModel() {
+        if (this.fileModel) {
+          return JSON.parse(JSON.stringify(this.fileModel));
+        } else {
+          return {
+            id: null,
+            file_name: null,
+            path: null,
+            raw: null
+          };
+        }
+      }
+
+      _addSingleFile(file) {
+        if (file) {
+          let fileObj = this._getFileModel();
+          fileObj.file_name = file.name;
+          fileObj.raw = file;
+
+          if (this.files.length === 0) {
+            // add file
+            this.push('files', fileObj);
+          } else {
+            // replace/change file
+            this.set('files.0', fileObj);
+          }
+        }
+      }
+
+      _fileSelected(e) {
+        let files = e.target.files;
+        // replace file if case
+        if (this._replaceFile(files[0]) === true) {
           return;
         }
 
-        _replaceFile(newFile) {
-          if (this.changeFileIndex >= 0 && newFile) {
-            this.$.fileInput.setAttribute('multiple', this.multiple);
-            // this.set('disabled', false);
-            if (this.files[this.changeFileIndex]) {
-              if (this.multiple) {
-                // check for already selected
-                var fileAlreadySelected = this._checkFileAlreadySelected(newFile);
-                if (fileAlreadySelected.length > 0) {
-                  this._displayAlreadySelectedWarning(fileAlreadySelected);
-                  this.changeFileIndex = -1;
-                  // reset file input
-                  this.$.fileInput.value = null;
-                  return;
-                }
-              }
-              var oldFile = this.files[this.changeFileIndex];
-              var newFileObj = JSON.parse(JSON.stringify(oldFile));
-              newFileObj.file_name = newFile.name;
-              newFileObj.raw = newFile;
-              newFileObj.path = null;
-              this.set('files.' + this.changeFileIndex, newFileObj);
-            }
-            this.changeFileIndex = -1;
-            // reset file input
-            this.$.fileInput.value = null;
-            return true;
-          }
-          this.changeFileIndex = -1;
-          return false;
+        // new files selected
+        if (this.multiple) {
+          this._addMultipleFiles(files);
+        } else {
+          // single file upload
+          let file = e.target.files[0];
+          this._addSingleFile(file);
         }
-
-        _addMultipleFiles(files) {
-          var filesAlreadySelected = [];
-          for (var i = 0; i < files.length; i++) {
-            var fileAlreadySelected = this._checkFileAlreadySelected(files[i]);
-            if (fileAlreadySelected.length === 0) {
-              var fileObj = this._getFileModel();
-              fileObj.file_name = files[i].name;
-              fileObj.raw = files[i];
-              if (this.showUploadBtnAbove) {
-                this.unshift('files', fileObj);
-              } else {
-                this.push('files', fileObj);
-              }
-            } else {
-              filesAlreadySelected.push(fileAlreadySelected[0]);
-            }
-          }
-          if (filesAlreadySelected.length > 0) {
-            this._displayAlreadySelectedWarning(filesAlreadySelected);
-            filesAlreadySelected = [];
-          }
-        }
-
-        _checkFileAlreadySelected(file) {
-          var fileAlreadySelected = this.files.filter(function(f) {
-            return f.file_name === file.name && (f.path === '' || f.path === null || typeof f.path === 'undefined');
-          });
-          return fileAlreadySelected;
-        }
-
-        _displayAlreadySelectedWarning(filesAlreadySelected) {
-          // show a warning with the already selected files
-          var toastWarningMessage = '<p><strong>The following files are already selected:</strong><p>';
-          filesAlreadySelected.forEach(function(alreadySelectedFile) {
-            toastWarningMessage += '<p>' + alreadySelectedFile.file_name + '</p>';
-          });
-          Polymer.dom(this.$.fileAlreadySelectedToast).innerHTML = toastWarningMessage;
-          this.$.fileAlreadySelectedToast.open();
-        }
-
-        _getFileModel() {
-          if (this.fileModel) {
-            return JSON.parse(JSON.stringify(this.fileModel));
-          } else {
-            return {
-              id: null,
-              file_name: null,
-              path: null,
-              raw: null
-            };
-          }
-        }
-
-        _addSingleFile(file) {
-          if (file) {
-            var fileObj = this._getFileModel();
-            fileObj.file_name = file.name;
-            fileObj.raw = file;
-
-            if (this.files.length === 0) {
-              // add file
-              this.push('files', fileObj);
-            } else {
-              // replace/change file
-              this.set('files.0', fileObj);
-            }
-          }
-        }
-
-        _fileSelected(e) {
-          var files = e.target.files;
-          // replace file if case
-          if (this._replaceFile(files[0]) === true) {
-            return;
-          }
-
-          // new files selected
-          if (this.multiple) {
-            this._addMultipleFiles(files);
-          } else {
-            // single file upload
-            var file = e.target.files[0];
-            this._addSingleFile(file);
-          }
-          // reset file input
-          this.$.fileInput.value = null;
-        }
-
-        _changeFile(e) {
-          if (e.model.index >= 0) {
-            this.changeFileIndex = e.model.index;
-            // this.set('disabled', true);
-            this.$.fileInput.removeAttribute('multiple');
-            this._openFileChooser();
-          }
-        }
-
-        _deleteFile(e) {
-          if (!this.multiple) {
-            if (this.files.length > 0) {
-              if (this.useDeleteEvents) {
-                this.dispatchEvent(new CustomEvent('delete-file', {detail: {file: this.files[0], index: 0}, bubbles: true, composed: true }));
-              } else {
-                this.set('files', []);
-              }
-              this.$.fileInput.value = null;
-            }
-          } else {
-            if (typeof e.model.index === 'number' && e.model.index >= 0) {
-              if (this.useDeleteEvents) {
-                this.dispatchEvent(new CustomEvent('delete-file', {detail: {file: this.files[e.model.index], index: e.model.index}, bubbles: true, composed: true }));
-              } else {
-                this.splice('files', e.model.index, 1);
-              }
-            }
-          }
-        }
-
-        _filesChange() {
-          if (this.files instanceof Array && this.files.length > 0) {
-            this.set('showFilesContainer', true);
-          } else {
-            this.set('showFilesContainer', false);
-          }
-
-          if (!this.multiple) {
-            if (this.files instanceof Array && this.files.length > 1) {
-              this.set('files', [this.files[0]]);
-            }
-          }
-        }
-
-        _downloadFile(e) {
-          if (this.files.length > 0) {
-            var file = this.files[0];
-            if (this.multiple && this.files[e.model.index]) {
-              file = this.files[e.model.index];
-            }
-            if (typeof file !== 'undefined' && file.path !== '') {
-              var a = this.$.downloader;
-              a.href = file.path;
-              a.download = file.file_name;
-              a.click();
-              window.URL.revokeObjectURL(file.path);
-            }
-          }
-        }
-
-        _getMultipleClass(multiple) {
-          if (multiple) {
-            return 'multiple';
-          }
-          return '';
-        }
-
+        // reset file input
+        this.$.fileInput.value = null;
       }
-      customElements.define(EtoolsFile.is, EtoolsFile);
+
+      _changeFile(e) {
+        if (e.model.index >= 0) {
+          this.changeFileIndex = e.model.index;
+          // this.set('disabled', true);
+          this.$.fileInput.removeAttribute('multiple');
+          this._openFileChooser();
+        }
+      }
+
+      _deleteFile(e) {
+        if (!this.multiple) {
+          if (this.files.length > 0) {
+            if (this.useDeleteEvents) {
+              this.dispatchEvent(new CustomEvent('delete-file', {
+                detail: {file: this.files[0], index: 0},
+                bubbles: true,
+                composed: true
+              }));
+            } else {
+              this.set('files', []);
+            }
+            this.$.fileInput.value = null;
+          }
+        } else {
+          if (typeof e.model.index === 'number' && e.model.index >= 0) {
+            if (this.useDeleteEvents) {
+              this.dispatchEvent(new CustomEvent('delete-file', {
+                detail: {
+                  file: this.files[e.model.index],
+                  index: e.model.index
+                }, bubbles: true, composed: true
+              }));
+            } else {
+              this.splice('files', e.model.index, 1);
+            }
+          }
+        }
+      }
+
+      _filesChange() {
+        if (this.files instanceof Array && this.files.length > 0) {
+          this.set('showFilesContainer', true);
+        } else {
+          this.set('showFilesContainer', false);
+        }
+
+        if (!this.multiple) {
+          if (this.files instanceof Array && this.files.length > 1) {
+            this.set('files', [this.files[0]]);
+          }
+        }
+      }
+
+      _downloadFile(e) {
+        if (this.files.length > 0) {
+          let file = this.files[0];
+          if (this.multiple && this.files[e.model.index]) {
+            file = this.files[e.model.index];
+          }
+          if (typeof file !== 'undefined' && file.path !== '') {
+            let a = this.$.downloader;
+            a.href = file.path;
+            a.download = file.file_name;
+            a.click();
+            window.URL.revokeObjectURL(file.path);
+          }
+        }
+      }
+
+      _getMultipleClass(multiple) {
+        return multiple ? 'multiple' : '';
+      }
+
+    }
+
+    customElements.define(EtoolsFile.is, EtoolsFile);
   </script>
 </dom-module>
