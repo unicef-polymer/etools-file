@@ -1,17 +1,22 @@
 <link rel="import" href="../../moment-element/moment-import.html">
 <script>
-  window.etoolsFileBehaviors = window.etoolsFileBehaviors || {};
-  /** @polymerBehavior etoolsFileBehaviors.DateBehavior */
-  etoolsFileBehaviors.DateBehavior = {
+  // @namespace etoolsFileMixins
+  window.EtoolsFileMixins = window.EtoolsFileMixins || {};
+
+  /**
+   * @polymer
+   * @mixinFunction
+   */
+  EtoolsFileMixins.DateMixin = baseClass => class extends baseClass { // eslint-disable-line
 
     /**
      * Format date string to any format supported by momentjs
      */
-    prettyDate: function(dateInput, format) {
+    prettyDate(dateInput, format) {
       if (!format) {
         format = 'D MMM YYYY';
       }
-      var date;
+      let date;
       if (dateInput instanceof Date) {
         date = dateInput;
       } else {
@@ -25,5 +30,5 @@
 
       return '';
     }
- };
+  };
 </script>

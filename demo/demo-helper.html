@@ -1,107 +1,111 @@
-<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../polymer/polymer-element.html">
 
 <dom-module id="demo-helper">
   <script>
-    (function() {
-      // jscs:disable
-      'use strict';
 
-      Polymer({
-        is: 'demo-helper',
+     'use strict';
 
-        properties: {
-          fileData: {
-            type: Array,
-            value: [
-              {
-                id: 'pic1',
-                file_name: 'cat.jpg',
-                path: 'https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg'
-              }
-            ],
-            notify: true
-          },
-          files: {
-            type: Array,
-            value: [
-              {
-                id: 'pic1',
-                file_name: 'cat.jpg',
-                path: 'https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg'
-              },
-              {
-                id: 'pic2',
-                file_name: 'cat2.jpg',
-                path: 'https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg'
-              }
-            ],
-            notify: true
-          },
-          singleFile: {
-            type: Array,
-            value: []
-          },
-          multipleFiles: {
-            type: Array,
-            value: []
-          },
-          singleFileData: {
-            type: Array,
-            value: [],
-            notify: true
-          },
-          fileModel: {
-            type: Object,
-            value: {
-              id: null,
-              intervention: 4,
-              type: null,
-              upload_date: null
+     class DemoHelper extends Polymer.Element {
+        static get is() {
+          return 'demo-helper';
+        }
+
+        static get properties() {
+          return {
+            fileData: {
+              type: Array,
+              value: [
+                {
+                  id: 'pic1',
+                  file_name: 'cat.jpg',
+                  path: 'https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg'
+                }
+              ],
+              notify: true
             },
-            notify: true
-          },
-          multipleFileData: {
-            type: Array,
-            value: [],
-            notify: true
-          },
-          fileTypes: {
-            type: Array,
-            value: [
-              {
+            files: {
+              type: Array,
+              value: [
+                {
+                  id: 'pic1',
+                  file_name: 'cat.jpg',
+                  path: 'https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg'
+                },
+                {
+                  id: 'pic2',
+                  file_name: 'cat2.jpg',
+                  path: 'https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg'
+                }
+              ],
+              notify: true
+            },
+            singleFile: {
+              type: Array,
+              value: []
+            },
+            multipleFiles: {
+              type: Array,
+              value: []
+            },
+            singleFileData: {
+              type: Array,
+              value: [],
+              notify: true
+            },
+            fileModel: {
+              type: Object,
+              value: {
                 id: null,
-                name: 'None'
+                intervention: 4,
+                type: null,
+                upload_date: null
               },
-              {
-                "id": 3,
-                "name": "Jason"
-              },
-              {
-                "id": 4,
-                "name": "Picture"
-              },
-              {
-                "id": 5,
-                "name": ".xls"
-              },
-              {
-                "id": 6,
-                "name": "FACE Forms"
-              },
-              {
-                "id": 7,
-                "name": "Programme Reports"
-              },
-              {
-                "id": 8,
-                "name": "Spot Check"
-              }
-            ],
-            notify: true
-          }
-        },
+              notify: true
+            },
+            multipleFileData: {
+              type: Array,
+              value: [],
+              notify: true
+            },
+            fileTypes: {
+              type: Array,
+              value: [
+                {
+                  id: null,
+                  name: 'None'
+                },
+                {
+                  "id": 3,
+                  "name": "Jason"
+                },
+                {
+                  "id": 4,
+                  "name": "Picture"
+                },
+                {
+                  "id": 5,
+                  "name": ".xls"
+                },
+                {
+                  "id": 6,
+                  "name": "FACE Forms"
+                },
+                {
+                  "id": 7,
+                  "name": "Programme Reports"
+                },
+                {
+                  "id": 8,
+                  "name": "Spot Check"
+                }
+              ],
+              notify: true
+            }
+          };
+        }
 
-        ready: function() {
+        ready() {
+          super.ready();
           this.set('singleFileData', [
             {
               id: 1331,
@@ -153,10 +157,10 @@
               path: "https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg"
             }
           ]);
-            
         }
-      });
 
-    })();
+      }
+
+      customElements.define(DemoHelper.is, DemoHelper);
   </script>
 </dom-module>

@@ -3,11 +3,11 @@
 This element will allow you to select and prepare the files you are gonna upload.
 The component doesn't upload the files, it just manages an array of them, which is reachable from the parent component.
 
-![alt tag](etools-file-unselected-files.png)
-![alt tag](etools-file-examples.png)
-![alt tag](etools-file-error.png)
-![alt tag](etools-file-readonly-no-file-attached.png)
-![alt tag](etools-file-with-types.png)
+![alt tag](img/etools-file-unselected-files.png)
+![alt tag](img/etools-file-examples.png)
+![alt tag](img/etools-file-error.png)
+![alt tag](img/etools-file-readonly-no-file-attached.png)
+![alt tag](img/etools-file-with-types.png)
 
 ## Usage
 

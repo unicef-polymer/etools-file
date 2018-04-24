@@ -1,4 +1,4 @@
-<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
 <!-- Styles applied to etools-file element -->
 
@@ -14,36 +14,40 @@
         display: block;
         width: 100%;
 
-        --paper-input-container-underline:	{
-            display: none;
+        --paper-input-container-underline: {
+          display: none;
         };
-        --paper-input-container-underline-focus:	{
+        --paper-input-container-underline-focus: {
           display: none;
         };
         --paper-input-container-underline-disabled: {
           display: none;
         };
         --paper-input-error: {
-          @apply(--etools-file-error);
+          @apply --etools-file-error;
         };
       }
 
       .files-container.multiple,
       .file-area,
       .upload-button-wrapper {
-        @apply(--layout-horizontal);
-        @apply(--layout-wrap);
+        @apply --layout-horizontal;
+        @apply --layout-wrap;
       }
+
       .upload-button-wrapper span {
         display: inherit;
       }
+
       .file-area {
         position: relative;
       }
+
       .selected-file-container,
       .file-actions {
         display: inline-block;
       }
+
       .file-actions paper-button,
       .selected-file-container iron-icon,
       .file-name-wrapper,
@@ -51,6 +55,7 @@
       .file-actions {
         float: left;
       }
+
       .selected-file-container {
         width: calc(100% - 255px);
         max-width: calc(100% - 255px);
@@ -58,36 +63,45 @@
         margin-right: 15px;
         box-sizing: border-box;
       }
+
       :host(:not([readonly])) .selected-file-container {
         border-bottom: 1px solid var(--etools-file-secondary-text-color, #737373);
-        @apply(--etools-file-filename-container);
+        @apply --etools-file-filename-container;
       }
+
       :host([readonly]) .selected-file-container {
         max-width: calc(100% - 145px);
-        @apply(--etools-file-readonly-filename-container);
+        @apply --etools-file-readonly-filename-container;
       }
+
       .file-actions {
-        @apply(--layout-horizontal);
+        @apply --layout-horizontal;
         width: 240px;
       }
+
       .files-container.multiple .file-actions {
-        @apply(--layout-flex);
-        @apply(--layout-end-justified);
-        @apply(--etools-file-actions-multiple);
+        @apply --layout-flex;
+        @apply --layout-end-justified;
+        @apply --etools-file-actions-multiple;
       }
+
       .files-container:not(.multiple) .file-actions {
-        @apply(--etools-file-actions-single);
+        @apply --etools-file-actions-single;
       }
+
       .files-container:not(.multiple) .file-name-wrapper {
-        @apply(--etools-file-single-file-wrapper);
+        @apply --etools-file-single-file-wrapper;
       }
+
       .selected-file-container.only-selected {
         max-width: calc(100% - 160px);
         width: calc(100% - 160px);
       }
+
       .file-actions.only-selected {
         width: 145px;
       }
+
       :host([readonly]) .file-actions {
         width: 130px;
       }
@@ -115,24 +129,24 @@
 
       .upload-button {
         --paper-button: {
-          @apply(--layout-flex);
-          @apply(--layout-start-justified);
+          @apply --layout-flex;
+          @apply --layout-start-justified;
           font-weight: bold;
           font-size: 14px;
           margin: 0;
           padding: 0 5px 0 0;
-          min-width: 150px !important;   /*IE11 fix*/
-          @apply(--etools-file-upload-button-paper-btn);
+          min-width: 150px !important; /*IE11 fix*/
+          @apply --etools-file-upload-button-paper-btn;
         };
         --paper-button-ink-color: rgba(255, 255, 255, 0);
-        @apply(--etools-file-upload-button);
+        @apply --etools-file-upload-button;
       }
 
       .change-button,
       .delete-button,
       .download-button {
         --paper-button: {
-          @apply(--layout-center-justified);
+          @apply --layout-center-justified;
           font-weight: bold;
           font-size: 14px;
           padding: 0;
@@ -141,6 +155,7 @@
           width: auto;
         };
       }
+
       .delete-button {
         margin-right: 0;
       }
@@ -154,17 +169,18 @@
       .download-button {
         color: var(--etools-file-main-btn-color, #00acff);
       }
+
       .delete-button {
         color: var(--etools-file-delete-btn-color, #f1572a);
       }
 
       .files-container.multiple .upload-button-wrapper {
-        @apply(--layout-vertical);
-        @apply(--layout-end-justified);
+        @apply --layout-vertical;
+        @apply --layout-end-justified;
       }
 
       .files-container.multiple {
-        @apply(--layout-vertical);
+        @apply --layout-vertical;
       }
 
       .files-container.multiple .files-wrapper:not([hidden]) + .upload-button-wrapper .upload-button {
@@ -180,12 +196,12 @@
       }
 
       .no-file-and-readonly {
-        @apply(--layout-vertical);
-        @apply(--layout-center-justified);
+        @apply --layout-vertical;
+        @apply --layout-center-justified;
         height: 24px;
       }
 
-      .type-dropdown paper-menu {
+      .type-dropdown paper-listbox {
         min-width: 200px;
       }
 
@@ -194,20 +210,22 @@
         width: 258px;
         float: left;
       }
+
       .file-type-input-wrapper .file-type-input {
         width: 100%;
       }
+
       .file-type-input,
       .type-dropdown {
         padding-left: 15px;
         border-left: 1px solid var(--etools-file-type-underline-color, rgba(0, 0, 0, 0.12));
         box-sizing: border-box;
 
-        --paper-input-container-underline:	{
+        --paper-input-container-underline: {
           display: block !important;
           border-bottom: 1px solid var(--etools-file-type-underline-color, rgba(0, 0, 0, 0.12)) !important;
         };
-        --paper-input-container-underline-focus:	{
+        --paper-input-container-underline-focus: {
           display: block !important;
           border-bottom: 1px solid var(--etools-file-type-underline-color, rgba(0, 0, 0, 0.12)) !important;
         };
@@ -218,10 +236,8 @@
       }
 
       #element-label {
-        @apply(--etools-file-label);
+        @apply --etools-file-label;
       }
-
-
 
     </style>
   </template>
