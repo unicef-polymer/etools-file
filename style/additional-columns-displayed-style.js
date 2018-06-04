@@ -1,7 +1,9 @@
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+import '@polymer/polymer/polymer-element.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
+const $_documentContainer = document.createElement('template');
+$_documentContainer.setAttribute('style', 'display: none;');
 
-<dom-module id="additional-columns-displayed-style">
+$_documentContainer.innerHTML = `<dom-module id="additional-columns-displayed-style">
   <template>
     <style>
       :host([show-upload-btn-above]) .files-wrapper {
@@ -126,4 +128,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);
