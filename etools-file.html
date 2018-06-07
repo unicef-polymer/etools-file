@@ -165,7 +165,7 @@ Custom property | Description | Default
             multiple="[[multiple]]"
             accept="{{accept}}">
 
-        <a id="downloader" hidden></a>
+        <a id="downloader" target="[[target]]" hidden></a>
       </div>
       <template is="dom-if" if="[[invalid]]">
         <paper-input-error aria-live="assertive" slot="add-on">[[errorMessage]]</paper-input-error>
@@ -285,7 +285,11 @@ Custom property | Description | Default
             reflectToAttribute: true
           },
           toastFitInto: Object,
-          showFilesContainer: Boolean
+          showFilesContainer: Boolean,
+          target: {
+            type: String,
+            value: '_self'
+          }
         };
       }
 
