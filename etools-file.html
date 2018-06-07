@@ -589,7 +589,6 @@ Custom property | Description | Default
           if (typeof file !== 'undefined' && file.path !== '') {
             let a = this.$.downloader;
             a.href = file.path;
-            // console.log("aaaaaaa", a);
             a.download = file.file_name;
             a.click();
             window.URL.revokeObjectURL(file.path);
