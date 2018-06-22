@@ -1,34 +1,34 @@
 /**
-`etools-file`
+ `etools-file`
 
-This element will allow you to select and prepare the files you are gonna upload.
-The component doesn't upload the files, it just manages an array of them, which is reachable from the parent component.
+ This element will allow you to select and prepare the files you are gonna upload.
+ The component doesn't upload the files, it just manages an array of them, which is reachable from the parent component.
 
-### Styling
+ ### Styling
 
-You can use defined variables to change element style.
+ You can use defined variables to change element style.
 
-Custom property | Description | Default
-----------------|-------------|----------
-`--etools-file-secondary-text-color` | Secondary text color | `rgba(255, 255, 255, 0.54)`
-`--etools-file-main-btn-color` | Main buttons text color(upload and download buttons) | `#00acff`
-`--etools-file-delete-btn-color` | Delete button text color | `#f1572a`
-`--etools-file-single-file-wrapper` | Mixin applied to single file name wrapper | `{}`
-`--etools-file-filename-container` | Mixin applied to the filename container | `{}`
-`--etools-file-readonly-filename-container` | Mixin applied to the filename container(only if it's readonly) | `{}`
-`--etools-file-actions-multiple` | Mixin applied to file action buttons container if multiple is `true` | `{}`
-`--etools-file-actions-single` | Mixin applied to file action buttons container for single file selection | `{}`
-`--etools-file-error` | Mixin applied to the error message element | `{}`
-`--etools-file-type-underline-color` | File type underline color | `rgba(0, 0, 0, 0.12)`
-`--etools-file-area-with-type-border-color` | File area with type underline color | `rgba(0, 0, 0, 0.12)`
-`--etools-file-label` | File type underline color | `rgba(0, 0, 0, 0.12)`
-`--etools-file-area-with-type` | File area with type mixin | `{}`
-`--etools-file-upload-button-paper-btn` | Upload btn paper-button mixin | `{}`
-`--etools-file-upload-button` | Upload button mixin | `{}`
-*/
+ Custom property | Description | Default
+ ----------------|-------------|----------
+ `--etools-file-secondary-text-color` | Secondary text color | `rgba(255, 255, 255, 0.54)`
+ `--etools-file-main-btn-color` | Main buttons text color(upload and download buttons) | `#00acff`
+ `--etools-file-delete-btn-color` | Delete button text color | `#f1572a`
+ `--etools-file-single-file-wrapper` | Mixin applied to single file name wrapper | `{}`
+ `--etools-file-filename-container` | Mixin applied to the filename container | `{}`
+ `--etools-file-readonly-filename-container` | Mixin applied to the filename container(only if it's readonly) | `{}`
+ `--etools-file-actions-multiple` | Mixin applied to file action buttons container if multiple is `true` | `{}`
+ `--etools-file-actions-single` | Mixin applied to file action buttons container for single file selection | `{}`
+ `--etools-file-error` | Mixin applied to the error message element | `{}`
+ `--etools-file-type-underline-color` | File type underline color | `rgba(0, 0, 0, 0.12)`
+ `--etools-file-area-with-type-border-color` | File area with type underline color | `rgba(0, 0, 0, 0.12)`
+ `--etools-file-label` | File type underline color | `rgba(0, 0, 0, 0.12)`
+ `--etools-file-area-with-type` | File area with type mixin | `{}`
+ `--etools-file-upload-button-paper-btn` | Upload btn paper-button mixin | `{}`
+ `--etools-file-upload-button` | Upload button mixin | `{}`
+ */
 
 
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 
 import '@polymer/polymer/lib/elements/dom-if.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
@@ -54,100 +54,110 @@ import './style/additional-columns-displayed-style.js';
  */
 class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
   static get template() {
+    // language=HTML
     return html`
-    <style include="etools-file-style additional-columns-displayed-style">
-      .toast-style {
-        min-width: 330px;
-      }
-    </style>
+      <style include="etools-file-style additional-columns-displayed-style">
+        .toast-style {
+          min-width: 330px;
+        }
+      </style>
 
-    <paper-input-container always-float-label="" disabled\$="[[disabled]]" invalid\$="[[invalid]]">
+      <paper-input-container always-float-label="" disabled\$="[[disabled]]" invalid\$="[[invalid]]">
 
-      <label slot="label" id="element-label" hidden\$="[[!_showLabel(label)]]" aria-hidden="true">[[label]]</label>
-      <div slot="input">
-        <div class\$="files-container [[_getMultipleClass(multiple)]]">
-          <div class="files-wrapper" hidden\$="[[!showFilesContainer]]">
-            <template is="dom-repeat" items="[[files]]" as="file">
+        <label slot="label" id="element-label" hidden\$="[[!_showLabel(label)]]" aria-hidden="true">[[label]]</label>
+        <div slot="input">
+          <div class\$="files-container [[_getMultipleClass(multiple)]]">
+            <div class="files-wrapper" hidden\$="[[!showFilesContainer]]">
+              <template is="dom-repeat" items="[[files]]" as="file">
 
-              <div class="file-area">
+                <div class="file-area">
 
-                <div class\$="selected-file-container [[_getFileSelectedClass(file)]]">
-                  <template is="dom-if" if="[[showUploadDate]]">
-                    <div class="upload-date">
-                      <paper-input-container always-float-label="">
-                        <label slot="label">Upload Date</label>
-                        <div slot="input" class="paper-input-input">
-                          [[_formatUploadDate(file.created, file.id)]]
-                        </div>
-                      </paper-input-container>
+                  <div class\$="selected-file-container [[_getFileSelectedClass(file)]]">
+                    <template is="dom-if" if="[[showUploadDate]]">
+                      <div class="upload-date">
+                        <paper-input-container always-float-label="">
+                          <label slot="label">Upload Date</label>
+                          <div slot="input" class="paper-input-input">
+                            [[_formatUploadDate(file.created, file.id)]]
+                          </div>
+                        </paper-input-container>
+                      </div>
+                    </template>
+                    <div class="file-name-wrapper">
+                      <iron-icon class="file-icon" icon="attachment"></iron-icon>
+                      <span class="file-name" title="[[file.file_name]]">[[file.file_name]]</span>
                     </div>
-                  </template>
-                  <div class="file-name-wrapper">
-                    <iron-icon class="file-icon" icon="attachment"></iron-icon>
-                    <span class="file-name" title="[[file.file_name]]">[[file.file_name]]</span>
+                    <template is="dom-if" if="[[_showReadonlyType(file.type, readonly)]]">
+                      <div class="file-type-input-wrapper">
+                        <paper-input class="file-type-input" label="[[fileTypesLabel]]"
+                                     value="[[_getFileTypeStr(file.type)]]" placeholder="—" readonly=""></paper-input>
+                      </div>
+                    </template>
+                    <template is="dom-if" if="[[_showFileType(fileTypes.length, readonly, file.type)]]">
+                      <!-- types dropdown -->
+                      <paper-dropdown-menu class="type-dropdown" label="[[fileTypesLabel]]" placeholder="—" noink="">
+                        <paper-listbox id\$="typeDropdown_[[index]]" slot="dropdown-content" attr-for-selected="name"
+                                       on-iron-select="_typeChanged" on-iron-deselect="_typeChanged"
+                                       selected="{{file.type}}">
+                          <template is="dom-repeat" items="[[fileTypes]]" as="fileType">
+                            <paper-item name\$="[[fileType.id]]">[[fileType.name]]</paper-item>
+                          </template>
+                        </paper-listbox>
+                      </paper-dropdown-menu>
+                    </template>
+
                   </div>
-                  <template is="dom-if" if="[[_showReadonlyType(file.type, readonly)]]">
-                    <div class="file-type-input-wrapper">
-                      <paper-input class="file-type-input" label="[[fileTypesLabel]]" value="[[_getFileTypeStr(file.type)]]" placeholder="—" readonly=""></paper-input>
-                    </div>
-                  </template>
-                  <template is="dom-if" if="[[_showFileType(fileTypes.length, readonly, file.type)]]">
-                    <!-- types dropdown -->
-                    <paper-dropdown-menu class="type-dropdown" label="[[fileTypesLabel]]" placeholder="—" noink="">
-                      <paper-listbox id\$="typeDropdown_[[index]]" slot="dropdown-content" attr-for-selected="name" on-iron-select="_typeChanged" on-iron-deselect="_typeChanged" selected="{{file.type}}">
-                        <template is="dom-repeat" items="[[fileTypes]]" as="fileType">
-                          <paper-item name\$="[[fileType.id]]">[[fileType.name]]</paper-item>
-                        </template>
-                      </paper-listbox>
-                    </paper-dropdown-menu>
-                  </template>
+
+                  <div class\$="file-actions [[_getFileSelectedClass(file)]]">
+                    <!-- download btn if file was uploaded -->
+                    <paper-button class="download-button" disabled\$="[[!_showDownloadBtn(file)]]"
+                                  hidden\$="[[!_showDownloadBtn(file)]]" on-tap="_downloadFile" title="Download">
+                      <iron-icon icon="cloud-download"></iron-icon>
+                      Download
+                    </paper-button>
+
+                    <paper-button class="change-button" on-tap="_changeFile" disabled\$="[[readonly]]"
+                                  hidden\$="[[readonly]]">
+                      Change
+                    </paper-button>
+
+                    <paper-button class="delete-button" on-tap="_deleteFile" disabled\$="[[readonly]]"
+                                  hidden\$="[[_hideDeleteBtn(file, hideDeleteBtn, readonly, files)]]">
+                      Delete
+                    </paper-button>
+                  </div>
 
                 </div>
+              </template>
+            </div>
 
-                <div class\$="file-actions [[_getFileSelectedClass(file)]]">
-                  <!-- download btn if file was uploaded -->
-                  <paper-button class="download-button" disabled\$="[[!_showDownloadBtn(file)]]" hidden\$="[[!_showDownloadBtn(file)]]" on-tap="_downloadFile" title="Download">
-                    <iron-icon icon="cloud-download"></iron-icon>
-                    Download
-                  </paper-button>
-
-                  <paper-button class="change-button" on-tap="_changeFile" disabled\$="[[readonly]]" hidden\$="[[readonly]]">
-                    Change
-                  </paper-button>
-
-                  <paper-button class="delete-button" on-tap="_deleteFile" disabled\$="[[readonly]]" hidden\$="[[_hideDeleteBtn(file, hideDeleteBtn, readonly, files)]]">
-                    Delete
-                  </paper-button>
-                </div>
-
-              </div>
-            </template>
-          </div>
-
-          <div class="upload-button-wrapper" hidden\$="[[!_showUploadBtn(files.length, readonly)]]">
+            <div class="upload-button-wrapper" hidden\$="[[!_showUploadBtn(files.length, readonly)]]">
             <span>
-              <paper-button class="upload-button" on-tap="_openFileChooser" title="[[uploadLabel]]" disabled\$="[[readonly]]">
+              <paper-button class="upload-button" on-tap="_openFileChooser" title="[[uploadLabel]]"
+                            disabled\$="[[readonly]]">
               <iron-icon icon="file-upload"></iron-icon>
               [[uploadLabel]]
               </paper-button>
             </span>
+            </div>
+            <div class="no-file-and-readonly" hidden\$="[[!_showNoFileAttachedMsg(files.length, readonly)]]">
+              [[noFileAttachedMsg]]
+            </div>
           </div>
-          <div class="no-file-and-readonly" hidden\$="[[!_showNoFileAttachedMsg(files.length, readonly)]]">
-            [[noFileAttachedMsg]]
-          </div>
+
+          <input hidden="" class="paper-input-input" type="file" id="fileInput" on-change="_fileSelected"
+                 multiple="[[multiple]]" accept="{{accept}}">
+
+          <a id="downloader" hidden=""></a>
         </div>
+        <template is="dom-if" if="[[invalid]]">
+          <paper-input-error aria-live="assertive" slot="add-on">[[errorMessage]]</paper-input-error>
+        </template>
+      </paper-input-container>
 
-        <input hidden="" class="paper-input-input" type="file" id="fileInput" on-change="_fileSelected" multiple="[[multiple]]" accept="{{accept}}">
-
-        <a id="downloader" hidden=""></a>
-      </div>
-      <template is="dom-if" if="[[invalid]]">
-        <paper-input-error aria-live="assertive" slot="add-on">[[errorMessage]]</paper-input-error>
-      </template>
-    </paper-input-container>
-
-    <paper-toast class="toast-style" id="fileAlreadySelectedToast" fit-into="[[toastFitInto]]" always-on-top=""></paper-toast>
-`;
+      <paper-toast class="toast-style" id="fileAlreadySelectedToast" fit-into="[[toastFitInto]]"
+                   always-on-top=""></paper-toast>
+    `;
   }
 
   static get is() {
@@ -162,7 +172,7 @@ class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
       },
       files: {
         type: Object,
-        value: function() {
+        value: function () {
           return [];
         },
         notify: true
@@ -190,13 +200,13 @@ class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
       },
       invalid: {
         type: Boolean,
-        value: function() {
+        value: function () {
           return false;
         }
       },
       errorMessage: {
         type: String,
-        value: function() {
+        value: function () {
           return '';
         }
       },
@@ -210,27 +220,27 @@ class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
       },
       useDeleteEvents: {
         type: Boolean,
-        value: function() {
+        value: function () {
           return false;
         }
       },
       activateFileTypes: {
         type: Boolean,
-        value: function() {
+        value: function () {
           return false;
         },
         reflectToAttribute: true
       },
       showUploadDate: {
         type: Boolean,
-        value: function() {
+        value: function () {
           return false;
         },
         reflectToAttribute: true
       },
       showUploadBtnAbove: {
         type: Boolean,
-        value: function() {
+        value: function () {
           return false;
         },
         reflectToAttribute: true
@@ -319,7 +329,7 @@ class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
   }
 
   _findInAvailableFileTypes(fileType) {
-    let type = this.fileTypes.filter(function(type) {
+    let type = this.fileTypes.filter(function (type) {
       return parseInt(type.id, 10) === parseInt(fileType, 10);
     });
     if (type && type.length) {
@@ -422,7 +432,7 @@ class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
   }
 
   _checkFileAlreadySelected(file) {
-    let fileAlreadySelected = this.files.filter(function(f) {
+    let fileAlreadySelected = this.files.filter(function (f) {
       return f.file_name === file.name && (f.path === '' || f.path === null || typeof f.path === 'undefined');
     });
     return fileAlreadySelected;
@@ -431,7 +441,7 @@ class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
   _displayAlreadySelectedWarning(filesAlreadySelected) {
     // show a warning with the already selected files
     let toastWarningMessage = '<p><strong>The following files are already selected:</strong><p>';
-    filesAlreadySelected.forEach(function(alreadySelectedFile) {
+    filesAlreadySelected.forEach(function (alreadySelectedFile) {
       toastWarningMessage += '<p>' + alreadySelectedFile.file_name + '</p>';
     });
     this.$.fileAlreadySelectedToast.innerHTML = toastWarningMessage;
