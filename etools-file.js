@@ -28,7 +28,7 @@
  */
 
 
-import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
+import {PolymerElement, html} from '@polymer/polymer';
 
 import '@polymer/polymer/lib/elements/dom-if.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
@@ -42,37 +42,39 @@ import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
 import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/paper-item/paper-item.js';
-import './mixins/date-mixin.js';
-import './style/etools-file-style.js';
-import './style/additional-columns-displayed-style.js';
+// import './mixins/date-mixin.js';
+import {etoolsFilesStyle} from './style/etools-file-style';
+import {additionalColumnsDisplayedStyle} from './style/additional-columns-displayed-style';
+import {DateMixin} from './mixins/date-mixin';
 
 /**
  * @polymer
  * @customElement
- * @appliesMixin EtoolsFileMixins.DateMixin
+ * @appliesMixin DateMixin
  * @demo demo/index.html
  */
-class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
+class EtoolsFile extends DateMixin(PolymerElement) {
   static get template() {
     // language=HTML
     return html`
-      <style include="etools-file-style additional-columns-displayed-style">
+        ${etoolsFilesStyle} ${additionalColumnsDisplayedStyle}
+      <style>
         .toast-style {
           min-width: 330px;
         }
       </style>
 
-      <paper-input-container always-float-label="" disabled\$="[[disabled]]" invalid\$="[[invalid]]">
+      <paper-input-container always-float-label="" disabled$="[[disabled]]" invalid$="[[invalid]]">
 
-        <label slot="label" id="element-label" hidden\$="[[!_showLabel(label)]]" aria-hidden="true">[[label]]</label>
+        <label slot="label" id="element-label" hidden$="[[!_showLabel(label)]]" aria-hidden="true">[[label]]</label>
         <div slot="input">
-          <div class\$="files-container [[_getMultipleClass(multiple)]]">
-            <div class="files-wrapper" hidden\$="[[!showFilesContainer]]">
+          <div class$="files-container [[_getMultipleClass(multiple)]]">
+            <div class="files-wrapper" hidden$="[[!showFilesContainer]]">
               <template is="dom-repeat" items="[[files]]" as="file">
 
                 <div class="file-area">
 
-                  <div class\$="selected-file-container [[_getFileSelectedClass(file)]]">
+                  <div class$="selected-file-container [[_getFileSelectedClass(file)]]">
                     <template is="dom-if" if="[[showUploadDate]]">
                       <div class="upload-date">
                         <paper-input-container always-float-label="">
@@ -96,11 +98,11 @@ class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
                     <template is="dom-if" if="[[_showFileType(fileTypes.length, readonly, file.type)]]">
                       <!-- types dropdown -->
                       <paper-dropdown-menu class="type-dropdown" label="[[fileTypesLabel]]" placeholder="—" noink="">
-                        <paper-listbox id\$="typeDropdown_[[index]]" slot="dropdown-content" attr-for-selected="name"
+                        <paper-listbox id$="typeDropdown_[[index]]" slot="dropdown-content" attr-for-selected="name"
                                        on-iron-select="_typeChanged" on-iron-deselect="_typeChanged"
                                        selected="{{file.type}}">
                           <template is="dom-repeat" items="[[fileTypes]]" as="fileType">
-                            <paper-item name\$="[[fileType.id]]">[[fileType.name]]</paper-item>
+                            <paper-item name$="[[fileType.id]]">[[fileType.name]]</paper-item>
                           </template>
                         </paper-listbox>
                       </paper-dropdown-menu>
@@ -108,21 +110,21 @@ class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
 
                   </div>
 
-                  <div class\$="file-actions [[_getFileSelectedClass(file)]]">
+                  <div class$="file-actions [[_getFileSelectedClass(file)]]">
                     <!-- download btn if file was uploaded -->
-                    <paper-button class="download-button" disabled\$="[[!_showDownloadBtn(file)]]"
-                                  hidden\$="[[!_showDownloadBtn(file)]]" on-tap="_downloadFile" title="Download">
+                    <paper-button class="download-button" disabled$="[[!_showDownloadBtn(file)]]"
+                                  hidden$="[[!_showDownloadBtn(file)]]" on-tap="_downloadFile" title="Download">
                       <iron-icon icon="cloud-download"></iron-icon>
                       Download
                     </paper-button>
 
-                    <paper-button class="change-button" on-tap="_changeFile" disabled\$="[[readonly]]"
-                                  hidden\$="[[readonly]]">
+                    <paper-button class="change-button" on-tap="_changeFile" disabled$="[[readonly]]"
+                                  hidden$="[[readonly]]">
                       Change
                     </paper-button>
 
-                    <paper-button class="delete-button" on-tap="_deleteFile" disabled\$="[[readonly]]"
-                                  hidden\$="[[_hideDeleteBtn(file, hideDeleteBtn, readonly, files)]]">
+                    <paper-button class="delete-button" on-tap="_deleteFile" disabled$="[[readonly]]"
+                                  hidden$="[[_hideDeleteBtn(file, hideDeleteBtn, readonly, files)]]">
                       Delete
                     </paper-button>
                   </div>
@@ -131,16 +133,16 @@ class EtoolsFile extends EtoolsFileMixins.DateMixin(PolymerElement) {
               </template>
             </div>
 
-            <div class="upload-button-wrapper" hidden\$="[[!_showUploadBtn(files.length, readonly)]]">
+            <div class="upload-button-wrapper" hidden$="[[!_showUploadBtn(files.length, readonly)]]">
             <span>
               <paper-button class="upload-button" on-tap="_openFileChooser" title="[[uploadLabel]]"
-                            disabled\$="[[readonly]]">
+                            disabled$="[[readonly]]">
               <iron-icon icon="file-upload"></iron-icon>
               [[uploadLabel]]
               </paper-button>
             </span>
             </div>
-            <div class="no-file-and-readonly" hidden\$="[[!_showNoFileAttachedMsg(files.length, readonly)]]">
+            <div class="no-file-and-readonly" hidden$="[[!_showNoFileAttachedMsg(files.length, readonly)]]">
               [[noFileAttachedMsg]]
             </div>
           </div>
