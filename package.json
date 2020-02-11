@@ -1,6 +1,6 @@
 {
   "description": "This element will allow you to select and prepare the files you are gonna upload.",
-  "name": "etools-app-selector",
+  "name": "etools-file",
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.0",
