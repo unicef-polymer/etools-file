@@ -1,12 +1,16 @@
-import moment from '../node_modules/moment/src/moment.js';
 // @namespace etoolsFileMixins
-window.EtoolsFileMixins = window.EtoolsFileMixins || {};
+// window.EtoolsFileMixins = window.EtoolsFileMixins || {};
+
+const moment = window.moment;
+if (!moment) {
+  throw new Error('CalendarLite: momentjs is not loaded');
+}
 
 /**
  * @polymer
  * @mixinFunction
  */
-EtoolsFileMixins.DateMixin = baseClass => class extends baseClass { // eslint-disable-line
+export const DateMixin = (baseClass) => class extends (baseClass) { // eslint-disable-line
 
   /**
    * Format date string to any format supported by momentjs

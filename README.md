@@ -72,12 +72,13 @@ Custom property | Description | Default
 
 ## Install
 ```bash
-$ bower install --save etools-file
+$ npm install --save etools-file
 ```
 
 ## Preview element locally
 
-Install needed dependencies by running: `$ bower install`.
+Install needed dependencies by running: `$ npm install`.
+Run `polymer analyze -i ./etools-file.js > analysis.json` to generate the file used by the Demo pages.
 Make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `$ polymer serve` to serve your element application locally.
 
 ## Linting the code

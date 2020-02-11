@@ -1,6 +1,12 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {PolymerElement} from '@polymer/polymer';
 
-class DemoHelper extends PolymerElement {
+
+/**
+ * @customElement
+ * @polymer
+ *
+ */
+class DemoHelper extends (PolymerElement) {
   static get is() {
     return 'demo-helper';
   }
