@@ -291,8 +291,8 @@ class EtoolsFile extends DateMixin(PolymerElement) {
   }
 
   _readonlyChanged(newValue) {
-    if (newValue) {
-      this.set('hideDeleteBtn', true);
+    if (newValue !== undefined) {
+      this.set('hideDeleteBtn', newValue);
     }
   }
 
