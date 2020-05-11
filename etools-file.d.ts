@@ -131,31 +131,6 @@ export declare class EtoolsFile extends EtoolsFile_base {
     };
     static get observers(): string[];
     ready(): void;
-    _formatUploadDate(uploadDate: any, fileId: any): any;
-    _readonlyChanged(newValue: any): void;
-    _hideDeleteBtn(file: any): any;
-    _showFileType(fileTypesLength: number, readonly: boolean, fileType: string): boolean;
-    _showReadonlyType(fileType: string, readonly: boolean): boolean;
-    _getFileTypeStr(fileType: string): any;
-    _findInAvailableFileTypes(fileType: string): any;
-    _showLabel(label: string): boolean;
-    _showUploadBtn(filesLength: number, readonly: boolean): boolean;
-    _showNoFileAttachedMsg(filesLength: number, readonly: boolean): boolean;
-    _showDownloadBtn(file: any): boolean;
-    _getFileSelectedClass(file: any): "" | "only-selected";
-    _openFileChooser(): void;
-    _typeChanged(event: any): void;
-    _replaceFile(newFile: any): boolean;
-    _addMultipleFiles(files: any): void;
-    _checkFileAlreadySelected(file: any): any;
-    _displayAlreadySelectedWarning(filesAlreadySelected: any): void;
-    _getFileModel(): any;
-    _addSingleFile(file: any): void;
-    _fileSelected(e: any): void;
-    _changeFile(e: any): void;
-    _deleteFile(e: any): void;
-    _filesChange(): void;
-    _downloadFile(e: any): void;
-    _getMultipleClass(multiple: any): "" | "multiple";
+
 }
 export {};
