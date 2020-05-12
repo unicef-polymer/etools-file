@@ -7,7 +7,7 @@
     "url": "https://github.com/unicef-polymer/etools-file.git"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
+    "eslint": "^4.18.2",
     "eslint-config-google": "^0.7.0",
     "eslint-plugin-html": "^2.0.0",
     "@polymer/iron-component-page": "^3.0.0-pre.18",
