@@ -130,7 +130,6 @@ export declare class EtoolsFile extends EtoolsFile_base {
         showFilesContainer: BooleanConstructor;
     };
     static get observers(): string[];
-    ready(): void;
 
 }
 export {};
