@@ -40,96 +40,34 @@ import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/paper-item/paper-item.js';
 declare const EtoolsFile_base: any;
 /**
- * @polymer
- * @customElement
- * @appliesMixin DateMixin
- * @demo demo/index.html
+ * `etools-file`
  */
-export declare class EtoolsFile extends EtoolsFile_base {
-    static get template(): HTMLTemplateElement;
-    static get is(): string;
-    static get properties(): {
-        label: {
-            type: StringConstructor;
-            value: string;
-        };
-        files: {
-            type: ObjectConstructor;
-            value: () => any[];
-            notify: boolean;
-        };
-        multiple: {
-            type: BooleanConstructor;
-            value: boolean;
-        };
-        disabled: {
-            type: BooleanConstructor;
-            value: boolean;
-        };
-        accept: {
-            type: StringConstructor;
-        };
-        uploadLabel: {
-            type: StringConstructor;
-            value: string;
-        };
-        readonly: {
-            type: BooleanConstructor;
-            value: boolean;
-            reflectToAttribute: boolean;
-            observer: string;
-        };
-        invalid: {
-            type: BooleanConstructor;
-            value: () => boolean;
-        };
-        errorMessage: {
-            type: StringConstructor;
-            value: () => string;
-        };
-        noFileAttachedMsg: {
-            type: StringConstructor;
-            value: string;
-        };
-        fileModel: {
-            type: ObjectConstructor;
-            value: any;
-        };
-        useDeleteEvents: {
-            type: BooleanConstructor;
-            value: () => boolean;
-        };
-        activateFileTypes: {
-            type: BooleanConstructor;
-            value: () => boolean;
-            reflectToAttribute: boolean;
-        };
-        showUploadDate: {
-            type: BooleanConstructor;
-            value: () => boolean;
-            reflectToAttribute: boolean;
-        };
-        showUploadBtnAbove: {
-            type: BooleanConstructor;
-            value: () => boolean;
-            reflectToAttribute: boolean;
-        };
-        fileTypes: {
-            type: ArrayConstructor;
-            value: any[];
-        };
-        fileTypesLabel: {
-            type: StringConstructor;
-            value: string;
-        };
-        hideDeleteBtn: {
-            type: BooleanConstructor;
-            reflectToAttribute: boolean;
-        };
-        toastFitInto: ObjectConstructor;
-        showFilesContainer: BooleanConstructor;
-    };
-    static get observers(): string[];
+declare class EtoolsFile extends EtoolsFile_base {
+    label: string
+    files: object
+    multiple: boolean
+    disabled: boolean
+    accept: string
+    uploadLabel: string
+    readonly: boolean
+    invalid: boolean
+    errorMessage: string
+    noFileAttachedMsg: string
+    fileModel: object
+    useDeleteEvents: boolean
+    activateFileTypes: boolean
+    showUploadDate: boolean
+    showUploadBtnAbove: boolean
+    fileTypes: string[]
+    fileTypesLabel: string
+    hideDeleteBtn: boolean
+    toastFitInto: object
 
 }
-export {};
+export {EtoolsFile};
+
+declare global {
+    interface HTMLElementTagNameMap {
+        "etools-file": EtoolsFile;
+    }
+}
