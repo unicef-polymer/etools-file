@@ -53,7 +53,7 @@ import {DateMixin} from './mixins/date-mixin';
  * @appliesMixin DateMixin
  * @demo demo/index.html
  */
-class EtoolsFile extends DateMixin(PolymerElement) {
+export class EtoolsFile extends DateMixin(PolymerElement) {
   static get template() {
     // language=HTML
     return html`
