@@ -31,6 +31,7 @@
     "@webcomponents/webcomponentsjs": "^2.4.3"
   },
   "main": "etools-file.js",
+  "module": "etools-file.js",
   "license": "https://github.com/unicef-polymer/etools-file/blob/master/LICENSE.md",
   "dependencies": {
     "@polymer/iron-flex-layout": "^3.0.1",
