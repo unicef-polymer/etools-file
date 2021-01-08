@@ -1,9 +1,9 @@
 // @namespace etoolsFileMixins
 // window.EtoolsFileMixins = window.EtoolsFileMixins || {};
 
-const moment = window.moment;
-if (!moment) {
-  throw new Error('CalendarLite: momentjs is not loaded');
+const dateLib = window.dayjs || window.moment;
+if (!dateLib) {
+  throw new Error('Etools-file DateMixin: dayjs or moment is not loaded');
 }
 
 /**
@@ -13,7 +13,7 @@ if (!moment) {
 export const DateMixin = (baseClass) => class extends (baseClass) { // eslint-disable-line
 
   /**
-   * Format date string to any format supported by momentjs
+   * Format date string to any format supported by dayjs
    */
   prettyDate(dateInput, format) {
     if (!format) {
@@ -27,8 +27,8 @@ export const DateMixin = (baseClass) => class extends (baseClass) { // eslint-di
     }
 
     if (date.toString() !== 'Invalid Date') {
-      // using moment.utc() ensures that the date will not be changed no matter timezone the user has set
-      return moment.utc(date).format(format);
+      // using dateLib.utc() ensures that the date will not be changed no matter timezone the user has set
+      return dateLib.utc(date).format(format);
     }
 
     return '';

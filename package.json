@@ -1,6 +1,7 @@
 {
   "description": "This element will allow you to select and prepare the files you are gonna upload.",
   "name": "@unicef-polymer/etools-file",
+  "version": "3.0.3",
   "homepage": "https://github.com/unicef-polymer/etools-file",
   "repository": {
     "type": "git",
@@ -20,9 +21,9 @@
   "scripts": {
     "start": "polymer serve",
     "lint": "npm run lint:javascript && polymer lint && exit 0",
-    "lint:javascript": "eslint . --ext js,html && exit 0"
+    "lint:javascript": "eslint . --ext js,html && exit 0",
+    "publish": "git push --tags && npm publish"
   },
-  "version": "3.0.2",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
@@ -42,7 +43,6 @@
     "@polymer/paper-listbox": "^3.0.1",
     "@polymer/paper-toast": "^3.0.1",
     "@polymer/polymer": "^3.4.1",
-    "moment": "^2.26.0",
     "web-animations-js": "^2.3.2"
   }
 }
