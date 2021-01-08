@@ -43,6 +43,7 @@
     "@polymer/paper-listbox": "^3.0.1",
     "@polymer/paper-toast": "^3.0.1",
     "@polymer/polymer": "^3.4.1",
-    "web-animations-js": "^2.3.2"
+    "web-animations-js": "^2.3.2",
+    "dayjs": "^1.10.2"
   }
 }
