@@ -21,7 +21,8 @@
       "error",
       {
         "capIsNewExceptions": [
-          "Polymer"
+          "Polymer",
+          "DateMixin"
         ],
         "capIsNewExceptionPattern": "^Etools.."
       }
@@ -54,7 +55,7 @@
     ]
   },
   "globals": {
-    "moment": true,
+    "dayjs": true,
     "Promise": true,
     "Polymer": true,
     "EtoolsLogsMixin": true,

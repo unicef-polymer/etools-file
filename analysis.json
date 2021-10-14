@@ -448,7 +448,7 @@
       "methods": [
         {
           "name": "prettyDate",
-          "description": "Format date string to any format supported by momentjs",
+          "description": "Format date string to any format supported by dayjs",
           "privacy": "public",
           "sourceRange": {
             "file": "mixins/date-mixin.js",
@@ -1449,7 +1449,7 @@
       "methods": [
         {
           "name": "prettyDate",
-          "description": "Format date string to any format supported by momentjs",
+          "description": "Format date string to any format supported by dayjs",
           "privacy": "public",
           "sourceRange": {
             "start": {
