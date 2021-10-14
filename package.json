@@ -16,7 +16,9 @@
     "eslint": "^7.1.0",
     "eslint-config-google": "^0.7.0",
     "eslint-plugin-html": "^6.0.2",
-    "wct-browser-legacy": "^1.0.2"
+    "wct-browser-legacy": "^1.0.2",
+    "prismjs": ">=1.21.0",
+    "glob-parent": ">=5.1.2"
   },
   "scripts": {
     "start": "polymer serve",
