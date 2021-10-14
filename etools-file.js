@@ -174,7 +174,7 @@ export class EtoolsFile extends DateMixin(PolymerElement) {
       },
       files: {
         type: Object,
-        value: function () {
+        value: function() {
           return [];
         },
         notify: true
@@ -202,13 +202,13 @@ export class EtoolsFile extends DateMixin(PolymerElement) {
       },
       invalid: {
         type: Boolean,
-        value: function () {
+        value: function() {
           return false;
         }
       },
       errorMessage: {
         type: String,
-        value: function () {
+        value: function() {
           return '';
         }
       },
@@ -222,27 +222,27 @@ export class EtoolsFile extends DateMixin(PolymerElement) {
       },
       useDeleteEvents: {
         type: Boolean,
-        value: function () {
+        value: function() {
           return false;
         }
       },
       activateFileTypes: {
         type: Boolean,
-        value: function () {
+        value: function() {
           return false;
         },
         reflectToAttribute: true
       },
       showUploadDate: {
         type: Boolean,
-        value: function () {
+        value: function() {
           return false;
         },
         reflectToAttribute: true
       },
       showUploadBtnAbove: {
         type: Boolean,
-        value: function () {
+        value: function() {
           return false;
         },
         reflectToAttribute: true
@@ -331,7 +331,7 @@ export class EtoolsFile extends DateMixin(PolymerElement) {
   }
 
   _findInAvailableFileTypes(fileType) {
-    let type = this.fileTypes.filter(function (type) {
+    let type = this.fileTypes.filter(function(type) {
       return parseInt(type.id, 10) === parseInt(fileType, 10);
     });
     if (type && type.length) {
@@ -434,7 +434,7 @@ export class EtoolsFile extends DateMixin(PolymerElement) {
   }
 
   _checkFileAlreadySelected(file) {
-    let fileAlreadySelected = this.files.filter(function (f) {
+    let fileAlreadySelected = this.files.filter(function(f) {
       return f.file_name === file.name && (f.path === '' || f.path === null || typeof f.path === 'undefined');
     });
     return fileAlreadySelected;
@@ -443,7 +443,7 @@ export class EtoolsFile extends DateMixin(PolymerElement) {
   _displayAlreadySelectedWarning(filesAlreadySelected) {
     // show a warning with the already selected files
     let toastWarningMessage = '<p><strong>The following files are already selected:</strong><p>';
-    filesAlreadySelected.forEach(function (alreadySelectedFile) {
+    filesAlreadySelected.forEach(function(alreadySelectedFile) {
       toastWarningMessage += '<p>' + alreadySelectedFile.file_name + '</p>';
     });
     this.$.fileAlreadySelectedToast.innerHTML = toastWarningMessage;
