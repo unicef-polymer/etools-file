@@ -47,6 +47,7 @@
     "eslint-plugin-html": "^6.0.2",
     "wct-browser-legacy": "^1.0.2",
     "prismjs": ">=1.27.0",
-    "glob-parent": ">=5.1.2"
+    "glob-parent": ">=5.1.2",
+    "ansi-regex": ">=5.0.1"
   }
 }
