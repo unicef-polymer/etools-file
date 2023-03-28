@@ -7,19 +7,6 @@
     "type": "git",
     "url": "https://github.com/unicef-polymer/etools-file.git"
   },
-  "devDependencies": {
-    "@polymer/iron-component-page": "^4.0.1",
-    "@polymer/iron-demo-helpers": "^3.1.0",
-    "@polymer/paper-input": "^3.2.0",
-    "@webcomponents/webcomponentsjs": "^2.4.3",
-    "acorn": ">=7.1.1",
-    "eslint": "^7.1.0",
-    "eslint-config-google": "^0.7.0",
-    "eslint-plugin-html": "^6.0.2",
-    "wct-browser-legacy": "^1.0.2",
-    "prismjs": ">=1.21.0",
-    "glob-parent": ">=5.1.2"
-  },
   "scripts": {
     "start": "polymer serve",
     "lint": "eslint . --ext js,html",
@@ -47,5 +34,19 @@
     "@polymer/polymer": "^3.4.1",
     "dayjs": "^1.10.2",
     "web-animations-js": "^2.3.2"
+  },
+  "devDependencies": {
+    "@polymer/iron-component-page": "^4.0.1",
+    "@polymer/iron-demo-helpers": "^3.1.0",
+    "@polymer/paper-input": "^3.2.0",
+    "@webcomponents/webcomponentsjs": "^2.4.3",
+    "ajv": ">=6.12.6",
+    "acorn": ">=7.1.1",
+    "eslint": "^7.1.0",
+    "eslint-config-google": "^0.7.0",
+    "eslint-plugin-html": "^6.0.2",
+    "wct-browser-legacy": "^1.0.2",
+    "prismjs": ">=1.27.0",
+    "glob-parent": ">=5.1.2"
   }
 }
